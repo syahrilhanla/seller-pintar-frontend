@@ -3,6 +3,7 @@ import axios from "axios";
 
 import ArticleCard from "@/components/Article/ArticleCard";
 import ArticleFilterSection from "@/components/Article/ArticleFilterSection";
+import ArticleHeroSection from "@/components/Article/ArticleHeroSection";
 
 interface Props {
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -27,15 +28,9 @@ export default async function ArticlePage({ searchParams }: Props) {
 	const articles: Article[] = data.data;
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 py-12 px-4">
-			<div className="max-w-5xl mx-auto">
-				<h1 className="text-3xl font-bold mb-8 text-slate-800 text-center">
-					Articles
-				</h1>
-
-				<p className="lg:text-lg text-slate-600 mb-6 text-center">
-					Explore our latest articles on various topics
-				</p>
+		<div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200">
+			<div className="w-full">
+				<ArticleHeroSection />
 
 				{/* filter section */}
 				<ArticleFilterSection />

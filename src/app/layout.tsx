@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={`${inter.variable} font-sans antialiased`}>
+			<body className={`${inter.variable} font-sans antialiased m-0 p-0`}>
 				<main>{children}</main>
 				<Toaster richColors />
 			</body>
