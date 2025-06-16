@@ -14,15 +14,6 @@ interface Props {
 
 const PaginationComponent = ({ currentPage, totalItems }: Props) => {
 	const totalPages = Math.ceil(totalItems / 9);
-
-	console.log(
-		"Total Pages:",
-		totalPages,
-		"Current Page:",
-		currentPage,
-		totalItems
-	);
-
 	const pages = [];
 	for (let i = 1; i <= totalPages; i++) {
 		pages.push(i);

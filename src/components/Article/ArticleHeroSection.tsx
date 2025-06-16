@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ArticleFilterSection from "@/components/Article/ArticleFilterSection";
+import { Popover, PopoverTrigger, PopoverContent } from "../ui/popover";
 
 const ArticleHeroSection = () => {
 	return (
@@ -41,15 +42,24 @@ const ArticleHeroSection = () => {
 					</span>
 				</div>
 				<div className="absolute top-6 right-6">
-					<div className="flex items-center gap-2">
-						<Avatar>
-							<AvatarImage src="invalidUrl" />
-							<AvatarFallback className="bg-blue-200 text-blue-900">
-								SH
-							</AvatarFallback>
-						</Avatar>
-						<span className="hidden md:inline text-white">Syahril Hanla</span>
-					</div>
+					<Popover modal>
+						<PopoverTrigger>
+							<div className="flex items-center gap-2 cursor-pointer">
+								<Avatar>
+									<AvatarImage src="invalidUrl" />
+									<AvatarFallback className="bg-blue-200 text-blue-900">
+										SH
+									</AvatarFallback>
+								</Avatar>
+								<span className="hidden md:inline text-white underline">
+									Syahril Hanla
+								</span>
+							</div>
+						</PopoverTrigger>
+						<PopoverContent forceMount className="mr-4">
+							Popover
+						</PopoverContent>
+					</Popover>
 				</div>
 			</div>
 
@@ -64,12 +74,19 @@ const ArticleHeroSection = () => {
 						className="mx-auto my-2"
 					/>
 				</span>
-				<Avatar className="mr-4 my-3">
-					<AvatarImage src="invalidUrl" />
-					<AvatarFallback className="bg-blue-300 text-blue-700">
-						SH
-					</AvatarFallback>
-				</Avatar>
+				<Popover>
+					<PopoverTrigger className="mr-4 my-2">
+						<Avatar className="mr-4 my-3 cursor-pointer">
+							<AvatarImage src="invalidUrl" />
+							<AvatarFallback className="bg-blue-300 text-blue-700">
+								SH
+							</AvatarFallback>
+						</Avatar>
+					</PopoverTrigger>
+					<PopoverContent forceMount className="mr-4">
+						Popover
+					</PopoverContent>
+				</Popover>
 			</div>
 		</section>
 	);

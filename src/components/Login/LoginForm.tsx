@@ -74,7 +74,7 @@ export default function LoginForm() {
 				if (data.role === "Admin") {
 					router.push("/admin/");
 				} else {
-					router.push("/user/");
+					router.push("/article");
 				}
 			} else {
 				const { username, password, role } = payload as RegisterFormData;
