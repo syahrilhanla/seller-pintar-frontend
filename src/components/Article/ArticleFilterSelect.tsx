@@ -33,10 +33,10 @@ const ArticleFilterSelect = ({ categoryList }: Props) => {
 	};
 
 	return (
-		<>
-			<h2 className="text-xl font-semibold text-slate-800">
+		<div className="grid gap-0">
+			<label className="text-sm font-medium text-slate-700 mb-1">
 				Filter by Category
-			</h2>
+			</label>
 
 			<Select onValueChange={selectCategory}>
 				<SelectTrigger className="w-48 border border-slate-300 bg-white text-slate-700 hover:border-slate-400 focus:border-slate-500 focus:ring-1 focus:ring-slate-500 rounded-md shadow-sm">
@@ -51,7 +51,7 @@ const ArticleFilterSelect = ({ categoryList }: Props) => {
 					))}
 				</SelectContent>
 			</Select>
-		</>
+		</div>
 	);
 };
 

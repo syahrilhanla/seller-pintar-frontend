@@ -11,7 +11,7 @@ const ArticleFilterSection = async () => {
 
 	return (
 		<section>
-			<div className="flex items-center justify-between mb-6">
+			<div className="flex gap-3 items-center justify-end mb-6">
 				<ArticleFilterSelect categoryList={categoryList} />
 			</div>
 		</section>
