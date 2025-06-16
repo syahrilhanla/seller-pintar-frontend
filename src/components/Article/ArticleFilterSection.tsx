@@ -23,7 +23,7 @@ const ArticleFilterSection = async () => {
 					</span>
 					<Input
 						placeholder="Search articles"
-						value={""}
+						// value={""}
 						// onChange={(e) => setSearch(e.target.value)}
 						className="w-full pl-8 bg-white text-slate-900"
 					/>

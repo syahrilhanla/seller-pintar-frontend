@@ -41,7 +41,7 @@ const ArticleFilterSelect = ({ categoryList }: Props) => {
 				<SelectContent>
 					<SelectItem value="all">All</SelectItem>
 					{categoryList.map((category) => (
-						<SelectItem key={category.id} value={category.id}>
+						<SelectItem key={category.id} value={category.id || "Management"}>
 							{category.name}
 						</SelectItem>
 					))}
