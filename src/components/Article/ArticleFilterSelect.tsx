@@ -24,7 +24,9 @@ const ArticleFilterSelect = ({ categoryList }: Props) => {
 		if (value === "all") {
 			params.delete("category");
 		} else {
-			params.set("category", value);
+			// special case for "Management" category, category id is empty string
+			if (value === "Management") params.set("category", "");
+			else params.set("category", value);
 		}
 
 		router.push(`/article?${params.toString()}`, { scroll: false });
@@ -43,7 +45,7 @@ const ArticleFilterSelect = ({ categoryList }: Props) => {
 				<SelectContent>
 					<SelectItem value="all">All Categories</SelectItem>
 					{categoryList.map((category: Category) => (
-						<SelectItem key={category.id} value={category.name}>
+						<SelectItem key={category.id} value={category.id || "Management"}>
 							{category.name}
 						</SelectItem>
 					))}

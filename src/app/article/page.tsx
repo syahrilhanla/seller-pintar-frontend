@@ -4,9 +4,24 @@ import axios from "axios";
 import ArticleCard from "@/components/Article/ArticleCard";
 import ArticleFilterSection from "@/components/Article/ArticleFilterSection";
 
-export default async function ArticlePage() {
+interface Props {
+	searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default async function ArticlePage({ searchParams }: Props) {
+	// must "await" the dynamic searchParams to ensure they are resolved before use,
+	// according to Next.js documentation
+	const { category, page, search } = await searchParams;
+
 	const { data } = await axios.get(
-		`${process.env.NEXT_PUBLIC_API_URL}/articles`
+		`${process.env.NEXT_PUBLIC_API_URL}/articles`,
+		{
+			params: {
+				category,
+				page,
+				search,
+			},
+		}
 	);
 
 	const articles: Article[] = data.data;
