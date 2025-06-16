@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { Search } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const ArticleHeroSection = () => {
 	return (
@@ -20,7 +21,7 @@ const ArticleHeroSection = () => {
 			}}
 			className="relative py-16 px-6 text-center bg-cover bg-center"
 		>
-			<div className="absolute inset-0 bg-blue-600/70  z-0" />
+			<div className="absolute inset-0 bg-blue-600/70 backdrop-blur-xs z-0" />
 			<div className="relative max-w-2xl mx-auto z-10 text-white flex flex-col items-center">
 				<h2 className="text-sm uppercase tracking-wide mb-2">Blog genzet</h2>
 				<h1 className="text-3xl md:text-5xl font-bold leading-tight mb-3">
@@ -29,7 +30,7 @@ const ArticleHeroSection = () => {
 				<p className="text-lg text-white mb-8">
 					Your daily dose of design insights!
 				</p>
-				<div className="w-fit flex flex-col sm:flex-row gap-3 justify-center items-center bg-blue-500 p-2 rounded-lg">
+				<div className="w-full md:w-fit flex flex-col sm:flex-row gap-3 justify-center items-center bg-blue-500 p-2 rounded-lg">
 					<Select>
 						<SelectTrigger className="w-full sm:w-fit bg-white text-slate-900 hover:bg-slate-50 focus:bg-slate-50">
 							<SelectValue placeholder="Select category" />
@@ -43,7 +44,7 @@ const ArticleHeroSection = () => {
 									))} */}
 						</SelectContent>
 					</Select>
-					<div className="relative w-60">
+					<div className="relative w-full">
 						<span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
 							<Search size={18} />
 						</span>
@@ -56,21 +57,50 @@ const ArticleHeroSection = () => {
 					</div>
 				</div>
 			</div>
-			<div className="absolute top-6 left-6">
-				<span className="font-bold text-lg">
+
+			{/* desktop navbar */}
+			<div className="hidden md:block w-full h-16 bg-white">
+				<div className="absolute top-6 left-6">
+					<span className="font-bold text-lg">
+						<Image
+							src="/Logo.svg"
+							alt="Logo"
+							width={120}
+							height={30}
+							className="mx-auto my-2"
+						/>
+					</span>
+				</div>
+				<div className="absolute top-6 right-6">
+					<div className="flex items-center gap-2">
+						<Avatar>
+							<AvatarImage src="invalidUrl" />
+							<AvatarFallback className="bg-blue-200 text-blue-900">
+								SH
+							</AvatarFallback>
+						</Avatar>
+						<span className="hidden md:inline text-white">Syahril Hanla</span>
+					</div>
+				</div>
+			</div>
+
+			{/* mobile navbar */}
+			<div className="md:hidden w-full absolute flex justify-between top-0 left-0 bg-white">
+				<span className="font-bold text-lg ml-4 my-2">
 					<Image
-						src="/Logo.svg"
+						src="/Frame.svg"
 						alt="Logo"
 						width={120}
 						height={30}
 						className="mx-auto my-2"
 					/>
 				</span>
-			</div>
-			<div className="absolute top-6 right-6">
-				<div className="flex items-center gap-2">
-					<span className="hidden md:inline text-white">James Dean</span>
-				</div>
+				<Avatar className="mr-4 my-3">
+					<AvatarImage src="invalidUrl" />
+					<AvatarFallback className="bg-blue-300 text-blue-700">
+						SH
+					</AvatarFallback>
+				</Avatar>
 			</div>
 		</section>
 	);
