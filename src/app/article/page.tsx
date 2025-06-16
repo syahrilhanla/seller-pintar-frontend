@@ -2,7 +2,6 @@ import { Article } from "@/types/article.type";
 import axios from "axios";
 
 import ArticleCard from "@/components/Article/ArticleCard";
-import ArticleFilterSection from "@/components/Article/ArticleFilterSection";
 import ArticleHeroSection from "@/components/Article/ArticleHeroSection";
 
 interface Props {
@@ -31,9 +30,6 @@ export default async function ArticlePage({ searchParams }: Props) {
 		<div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200">
 			<div className="w-full">
 				<ArticleHeroSection />
-
-				{/* filter section */}
-				<ArticleFilterSection />
 
 				<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 					{articles.map((article) => (

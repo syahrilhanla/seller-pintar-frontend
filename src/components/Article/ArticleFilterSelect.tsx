@@ -33,25 +33,21 @@ const ArticleFilterSelect = ({ categoryList }: Props) => {
 	};
 
 	return (
-		<div className="grid gap-0">
-			<label className="text-sm font-medium text-slate-700 mb-1">
-				Filter by Category
-			</label>
-
+		<>
 			<Select onValueChange={selectCategory}>
-				<SelectTrigger className="w-48 border border-slate-300 bg-white text-slate-700 hover:border-slate-400 focus:border-slate-500 focus:ring-1 focus:ring-slate-500 rounded-md shadow-sm">
-					<SelectValue placeholder="All Categories" />
+				<SelectTrigger className="w-full sm:w-fit bg-white text-slate-900 hover:bg-slate-50 focus:bg-slate-50">
+					<SelectValue placeholder="Select category" />
 				</SelectTrigger>
 				<SelectContent>
-					<SelectItem value="all">All Categories</SelectItem>
-					{categoryList.map((category: Category) => (
-						<SelectItem key={category.id} value={category.id || "Management"}>
+					<SelectItem value="all">All</SelectItem>
+					{categoryList.map((category) => (
+						<SelectItem key={category.id} value={category.id}>
 							{category.name}
 						</SelectItem>
 					))}
 				</SelectContent>
 			</Select>
-		</div>
+		</>
 	);
 };
 
