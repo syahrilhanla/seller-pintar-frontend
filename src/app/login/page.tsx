@@ -1,43 +1,29 @@
 "use client";
 
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import Image from "next/image";
 
+import { Card, CardContent } from "@/components/ui/card";
 import LoginForm from "@/components/Login/LoginForm";
-import RegisterForm from "@/components/Login/RegisterForm";
 
 export default function AuthPage() {
 	return (
-		<div className="flex h-screen">
-			{/* Branding Side */}
-			<div className="hidden lg:flex w-1/2 bg-gradient-to-br from-slate-200 to-slate-400 items-center justify-center p-10">
-				<div className="text-center">
-					<h1 className="text-4xl font-bold text-slate-900/70 mb-4">
-						Welcome to MySellerPintar.com
-					</h1>
-					<p className="text-lg text-slate-700 mb-6">
-						{`"Share your stories"`}
-					</p>
-				</div>
-			</div>
+		<div className="flex h-screen bg-[#F3F4F6]">
+			<div className="w-full flex items-center justify-center md:p-8">
+				<Card className="w-full h-[100dvh] md:block flex items-center justify-center md:h-fit px-0 md:max-w-md shadow-none border-none">
+					<div className="w-full">
+						<Image
+							src="/Frame.svg"
+							alt="Logo"
+							width={150}
+							height={50}
+							className="mx-auto my-2"
+						/>
 
-			{/* Form Side */}
-			<div className="w-full lg:w-1/2 flex items-center justify-center p-8">
-				<div className="w-full max-w-md">
-					<Tabs defaultValue="login" className="w-full">
-						<TabsList className="grid w-full grid-cols-2 mb-6">
-							<TabsTrigger value="login">Login</TabsTrigger>
-							<TabsTrigger value="register">Register</TabsTrigger>
-						</TabsList>
-
-						<TabsContent value="login">
+						<CardContent className="md:px-4">
 							<LoginForm />
-						</TabsContent>
-
-						<TabsContent value="register">
-							<RegisterForm />
-						</TabsContent>
-					</Tabs>
-				</div>
+						</CardContent>
+					</div>
+				</Card>
 			</div>
 		</div>
 	);
