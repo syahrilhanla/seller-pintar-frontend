@@ -35,7 +35,11 @@ export default function LoginForm() {
 			await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, data);
 
 			toast.success("Login successful!");
-			router.push("/articles");
+
+			// save user data to localStorage
+			localStorage.setItem("user", JSON.stringify(data));
+
+			router.push("/article");
 		} catch (error) {
 			const errorMessage = axios.isAxiosError(error)
 				? error.response?.data.error
