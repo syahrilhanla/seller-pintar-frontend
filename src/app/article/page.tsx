@@ -3,6 +3,7 @@ import axios from "axios";
 
 import ArticleCard from "@/components/Article/ArticleCard";
 import ArticleHeroSection from "@/components/Article/ArticleHeroSection";
+import PaginationComponent from "@/components/PaginationComponent";
 
 interface Props {
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -42,6 +43,11 @@ export default async function ArticlePage({ searchParams }: Props) {
 						))}
 					</div>
 				</div>
+
+				<PaginationComponent
+					currentPage={Number(page) || 1}
+					totalItems={data?.total || 1}
+				/>
 			</div>
 		</div>
 	);

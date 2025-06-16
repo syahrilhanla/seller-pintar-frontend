@@ -39,7 +39,7 @@ const ArticleFilterSelect = ({ categoryList }: Props) => {
 					<SelectValue placeholder="Select category" />
 				</SelectTrigger>
 				<SelectContent>
-					<SelectItem value="all">All</SelectItem>
+					<SelectItem value="all">All Categories</SelectItem>
 					{categoryList.map((category) => (
 						<SelectItem key={category.id} value={category.id || "Management"}>
 							{category.name}
