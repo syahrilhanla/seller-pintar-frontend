@@ -2,6 +2,7 @@ import { Article } from "@/types/article.type";
 import axios from "axios";
 
 import ArticleCard from "@/components/Article/ArticleCard";
+import ArticleFilterSection from "@/components/Article/ArticleFilterSection";
 
 export default async function ArticlePage() {
 	const { data } = await axios.get(
@@ -16,6 +17,14 @@ export default async function ArticlePage() {
 				<h1 className="text-3xl font-bold mb-8 text-slate-800 text-center">
 					Articles
 				</h1>
+
+				<p className="lg:text-lg text-slate-600 mb-6 text-center">
+					Explore our latest articles on various topics
+				</p>
+
+				{/* filter section */}
+				<ArticleFilterSection />
+
 				<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 					{articles.map((article) => (
 						<ArticleCard key={article.id} article={article} />
