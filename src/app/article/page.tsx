@@ -27,14 +27,20 @@ export default async function ArticlePage({ searchParams }: Props) {
 	const articles: Article[] = data.data;
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200">
+		<div className="min-h-screen bg-gradient-to-br bg-white">
 			<div className="w-full">
 				<ArticleHeroSection />
 
-				<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-					{articles.map((article) => (
-						<ArticleCard key={article.id} article={article} />
-					))}
+				<div className="px-5 md:px-24">
+					<p className="mt-10 mb-4 text-slate-600 text-sm md:text-base">
+						Showing: 9 of {data.total} articles
+					</p>
+
+					<div className="grid gap-8 md:grid-cols-3">
+						{articles.map((article) => (
+							<ArticleCard key={article.id} article={article} />
+						))}
+					</div>
 				</div>
 			</div>
 		</div>
