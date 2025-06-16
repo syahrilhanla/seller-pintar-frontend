@@ -1,54 +1,11 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
-// Define validation schemas
-const loginSchema = z.object({
-	email: z.string().email("Invalid email address"),
-	password: z.string().min(8, "Password must be at least 8 characters"),
-});
-
-const registerSchema = z.object({
-	name: z.string().min(2, "Name must be at least 2 characters"),
-	email: z.string().email("Invalid email address"),
-	password: z.string().min(8, "Password must be at least 8 characters"),
-	confirmPassword: z
-		.string()
-		.min(8, "Confirm Password must be at least 8 characters"),
-});
+import LoginForm from "@/components/Login/LoginForm";
+import RegisterForm from "@/components/Login/RegisterForm";
 
 export default function AuthPage() {
-	// login form
-	const {
-		register,
-		handleSubmit,
-		formState: { errors, isSubmitting },
-	} = useForm<z.infer<typeof loginSchema>>({
-		resolver: zodResolver(loginSchema),
-	});
-
-	// register form
-	const {
-		register: registerRegister,
-		handleSubmit: handleSubmitRegister,
-		formState: { errors: registerErrors, isSubmitting: isRegistering },
-	} = useForm<z.infer<typeof registerSchema>>({
-		resolver: zodResolver(registerSchema),
-	});
-
-	const onSubmitLogin = (data: any) => {
-		console.log("Form submitted:", data);
-	};
-
-	const onSubmitRegister = (data: any) => {
-		console.log("Register form submitted:", data);
-	};
-
 	return (
 		<div className="flex h-screen">
 			{/* Branding Side */}
@@ -73,92 +30,11 @@ export default function AuthPage() {
 						</TabsList>
 
 						<TabsContent value="login">
-							<form
-								onSubmit={handleSubmit(onSubmitLogin)}
-								className="space-y-4"
-							>
-								<div className="space-y-2">
-									<Input {...register("email")} placeholder="Email" />
-									{errors.email && (
-										<p className="text-red-500 text-sm">
-											{errors.email.message}
-										</p>
-									)}
-								</div>
-								<div className="space-y-2">
-									<Input
-										{...register("password")}
-										placeholder="Password"
-										type="password"
-									/>
-									{errors.password && (
-										<p className="text-red-500 text-sm">
-											{errors.password.message}
-										</p>
-									)}
-								</div>
-
-								<Button type="submit" className="w-full">
-									Login
-								</Button>
-							</form>
+							<LoginForm />
 						</TabsContent>
 
 						<TabsContent value="register">
-							<form
-								onSubmit={handleSubmitRegister(onSubmitRegister)}
-								className="space-y-4"
-							>
-								<div className="space-y-2">
-									<Input
-										{...registerRegister("name")}
-										placeholder="Full Name"
-									/>
-									{registerErrors.name && (
-										<p className="text-red-500 text-sm">
-											{registerErrors.name.message}
-										</p>
-									)}
-								</div>
-
-								<div className="space-y-2">
-									<Input {...registerRegister("email")} placeholder="Email" />
-									{registerErrors.email && (
-										<p className="text-red-500 text-sm">
-											{registerErrors.email.message}
-										</p>
-									)}
-								</div>
-
-								<div className="space-y-2">
-									<Input
-										{...registerRegister("password")}
-										type="password"
-										placeholder="Password"
-									/>
-									{registerErrors.password && (
-										<p className="text-red-500 text-sm">
-											{registerErrors.password.message}
-										</p>
-									)}
-								</div>
-
-								<div className="space-y-2">
-									<Input
-										{...registerRegister("confirmPassword")}
-										type="password"
-										placeholder="Confirm Password"
-									/>
-									{registerErrors.confirmPassword && (
-										<p className="text-red-500 text-sm">
-											{registerErrors.confirmPassword.message}
-										</p>
-									)}
-								</div>
-								<Button type="submit" className="w-full">
-									Register
-								</Button>
-							</form>
+							<RegisterForm />
 						</TabsContent>
 					</Tabs>
 				</div>
