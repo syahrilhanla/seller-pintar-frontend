@@ -29,7 +29,7 @@ const ArticleCard = ({ article }: { article: Article }) => {
 						{article.title}
 					</h2>
 					<span className="text-xs text-slate-500 whitespace-nowrap">
-						{formatDate(new Date(article.createdAt), "MMMM d, yyyy")}
+						{formatDate(new Date(article.createdAt))}
 					</span>
 				</div>
 				<p

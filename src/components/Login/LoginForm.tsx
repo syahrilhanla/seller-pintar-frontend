@@ -180,7 +180,7 @@ export default function LoginForm() {
 
 			{formState === "login" ? (
 				<p className="mt-2 text-sm text-center text-slate-600">
-					Don't have an account?{" "}
+					{`Don't have an account?`}
 					<span
 						onClick={() => setFormState("register")}
 						className="text-blue-500 cursor-pointer hover:underline"
