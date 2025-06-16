@@ -23,7 +23,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${inter.variable} font-sans antialiased`}>
 				<main>{children}</main>
-				<Toaster richColors closeButton />
+				<Toaster richColors />
 			</body>
 		</html>
 	);

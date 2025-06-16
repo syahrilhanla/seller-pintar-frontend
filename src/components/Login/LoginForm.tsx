@@ -3,6 +3,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 
+import { LoaderCircle } from "lucide-react";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -39,11 +41,7 @@ export default function LoginForm() {
 				? error.response?.data.error
 				: error;
 
-			if (errorMessage) {
-				toast.error(errorMessage);
-			} else {
-				toast.error("Login failed. Please try again later.");
-			}
+			toast.error(errorMessage);
 		}
 	};
 
@@ -69,9 +67,15 @@ export default function LoginForm() {
 			<Button
 				disabled={isSubmitting}
 				type="submit"
-				className="w-full disabled:opacity-50 disabled:cursor-not-allowed"
+				className="w-full disabled:opacity-50 disabled:cursor-not-allowed text-center"
 			>
-				Login
+				{isSubmitting ? (
+					<>
+						<LoaderCircle className="animate-spin" />
+					</>
+				) : (
+					"Login"
+				)}
 			</Button>
 		</form>
 	);
