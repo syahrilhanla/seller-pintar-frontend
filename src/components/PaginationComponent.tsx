@@ -29,7 +29,7 @@ const PaginationComponent = ({ currentPage, totalItems }: Props) => {
 	}
 
 	return (
-		<Pagination className="m-10 flex justify-center">
+		<Pagination className="mt-8 mb-12 flex justify-center">
 			<PaginationContent>
 				<PaginationItem>
 					<PaginationPrevious
