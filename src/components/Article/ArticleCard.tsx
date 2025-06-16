@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/helpers";
 
@@ -6,16 +7,16 @@ import { Article } from "@/types/article.type";
 const ArticleCard = ({ article }: { article: Article }) => {
 	return (
 		<div key={article.id} className="overflow-hidden bg-white">
-			{article.imageUrl && (
-				<img
-					src={
-						article.imageUrl ||
-						"https://s3.sellerpintar.com/articles/articles/1749892451746-hero.jpg"
-					}
-					alt={article.title}
-					className="w-full h-80 object-cover rounded-xl"
-				/>
-			)}
+			<Image
+				src={
+					article.imageUrl ||
+					"https://s3.sellerpintar.com/articles/articles/1749892451746-hero.jpg"
+				}
+				alt={article.title}
+				className="w-full h-80 object-cover rounded-xl"
+				width={400}
+				height={300}
+			/>
 			<div className="p-4">
 				<p className="text-sm text-gray-500 mb-1">
 					{formatDate(new Date(article.createdAt))}

@@ -14,12 +14,12 @@ export default async function ArticlePage({ searchParams }: Props) {
 	const { category, page, search } = await searchParams;
 
 	const { data } = await axios.get(
-		`${process.env.NEXT_PUBLIC_API_URL}/articles`,
+		`${process.env.NEXT_PUBLIC_API_URL}/articles?limit=9`,
 		{
 			params: {
 				category,
 				page,
-				search,
+				title: search,
 			},
 		}
 	);
@@ -33,7 +33,7 @@ export default async function ArticlePage({ searchParams }: Props) {
 
 				<div className="px-5 md:px-24">
 					<p className="mt-10 mb-4 text-slate-600 text-sm md:text-base">
-						Showing: 9 of {data.total} articles
+						Showing: {data?.data?.length} of {data?.total} articles
 					</p>
 
 					<div className="grid gap-8 md:grid-cols-3">
