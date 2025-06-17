@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ArticleFilterSection from "@/components/Article/ArticleFilterSection";
 import { Popover, PopoverTrigger, PopoverContent } from "../ui/popover";
+import NavbarDropdown from "@/components/NavbarDropdown";
 
 const ArticleHeroSection = () => {
 	return (
@@ -42,7 +43,7 @@ const ArticleHeroSection = () => {
 					</span>
 				</div>
 				<div className="absolute top-6 right-6">
-					<Popover modal>
+					<Popover>
 						<PopoverTrigger>
 							<div className="flex items-center gap-2 cursor-pointer">
 								<Avatar>
@@ -56,8 +57,8 @@ const ArticleHeroSection = () => {
 								</span>
 							</div>
 						</PopoverTrigger>
-						<PopoverContent forceMount className="mr-4">
-							Popover
+						<PopoverContent forceMount className="mr-4 px-0">
+							<NavbarDropdown />
 						</PopoverContent>
 					</Popover>
 				</div>
@@ -83,8 +84,8 @@ const ArticleHeroSection = () => {
 							</AvatarFallback>
 						</Avatar>
 					</PopoverTrigger>
-					<PopoverContent forceMount className="mr-4">
-						Popover
+					<PopoverContent forceMount className="mr-4 px-0">
+						<NavbarDropdown />
 					</PopoverContent>
 				</Popover>
 			</div>
