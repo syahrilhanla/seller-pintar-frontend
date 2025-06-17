@@ -74,7 +74,13 @@ const AdminCategoryTable = ({
 									{formatDate(new Date(category.createdAt), true)}
 								</TableCell>
 								<TableCell className="p-4 text-center space-x-0">
-									<AdminCategoryForm mode="update">
+									<AdminCategoryForm
+										mode="update"
+										category={{
+											id: category.id,
+											name: category.name,
+										}}
+									>
 										<Button
 											variant="link"
 											className="text-blue-600 cursor-pointer underline"

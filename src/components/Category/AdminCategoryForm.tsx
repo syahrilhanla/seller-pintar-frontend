@@ -34,9 +34,13 @@ type FormData = z.infer<typeof schema>;
 interface Props {
 	children: ReactNode;
 	mode: "create" | "update";
+	category?: {
+		id: string;
+		name: string;
+	};
 }
 
-const AdminCategoryForm = ({ children, mode }: Props) => {
+const AdminCategoryForm = ({ children, mode, category }: Props) => {
 	const user: User | null = useReadLocalStorage("user");
 
 	const router = useRouter();
@@ -47,6 +51,9 @@ const AdminCategoryForm = ({ children, mode }: Props) => {
 		formState: { errors, isSubmitting },
 	} = useForm<FormData>({
 		resolver: zodResolver(schema),
+		defaultValues: {
+			name: category?.name ? category.name : undefined,
+		},
 	});
 
 	const onSubmit: SubmitHandler<FormData> = async (payload: FormData) => {
@@ -61,13 +68,22 @@ const AdminCategoryForm = ({ children, mode }: Props) => {
 						},
 					}
 				);
-
-				router.push("/admin/category?refetch=true");
 			}
 
 			if (mode === "update") {
-				// Update logic here
+				await axios.put(
+					`${process.env.NEXT_PUBLIC_API_URL}/categories/${category?.id}`,
+					payload,
+					{
+						headers: {
+							Authorization: `Bearer ${user?.token}`,
+						},
+					}
+				);
 			}
+
+			// refetch the category list after submission
+			router.push("/admin/category?refetch=true");
 
 			toast.success(
 				`Category ${mode === "create" ? "created" : "updated"} successfully`
