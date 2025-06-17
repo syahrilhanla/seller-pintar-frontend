@@ -57,8 +57,9 @@ const useAdminCategoryList = () => {
 	// calculate the start index based on the current page number
 	const paginatedCategories = useMemo(() => {
 		const start = (pageNumber - 1) * DEFAULT_PAGE_SIZE;
+
 		return filteredCategories.slice(start, start + DEFAULT_PAGE_SIZE);
-	}, [filteredCategories, pageNumber, DEFAULT_PAGE_SIZE]);
+	}, [filteredCategories, pageNumber]);
 
 	return {
 		categories,
