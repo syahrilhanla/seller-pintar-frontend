@@ -1,6 +1,6 @@
 "use client";
 
-import LogoutDialog from "./LogoutDialog";
+import LogoutDialog from "../Auth/LogoutDialog";
 import { usePathname, useRouter } from "next/navigation";
 import { PopoverClose } from "@radix-ui/react-popover";
 

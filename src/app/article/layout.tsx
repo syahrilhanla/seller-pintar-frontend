@@ -3,8 +3,8 @@
 import { usePathname } from "next/navigation";
 
 import ArticleFooter from "@/components/Article/ArticleFooter";
-import AuthGuard from "@/components/AuthGuard";
-import Navbar from "@/components/Navbar";
+import AuthGuard from "@/components/Auth/AuthGuard";
+import Navbar from "@/components/Navbar/Navbar";
 
 const ArticleLayout = ({
 	children,

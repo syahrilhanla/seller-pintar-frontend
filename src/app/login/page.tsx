@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { Card, CardContent } from "@/components/ui/card";
-import LoginForm from "@/components/Login/LoginForm";
+import LoginForm from "@/components/Auth/LoginForm";
 
 export default function AuthPage() {
 	return (

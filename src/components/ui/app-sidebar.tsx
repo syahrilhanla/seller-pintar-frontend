@@ -11,7 +11,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import LogoutDialog from "@/components/LogoutDialog";
+import LogoutDialog from "@/components/Auth/LogoutDialog";
 
 import { LogOut, Newspaper, Tag } from "lucide-react";
 

@@ -1,5 +1,5 @@
-import AuthGuard from "@/components/AuthGuard";
-import Navbar from "@/components/Navbar";
+import AuthGuard from "@/components/Auth/AuthGuard";
+import Navbar from "@/components/Navbar/Navbar";
 
 const ArticleDetailLayout = ({
 	children,

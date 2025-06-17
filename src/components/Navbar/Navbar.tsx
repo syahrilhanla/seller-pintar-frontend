@@ -6,7 +6,7 @@ import {
 	PopoverTrigger,
 	PopoverContent,
 } from "@/components/ui/popover";
-import NavbarDropdown from "@/components/NavbarDropdown";
+import NavbarDropdown from "@/components/Navbar/NavbarDropdown";
 import Link from "next/link";
 
 interface Props {
