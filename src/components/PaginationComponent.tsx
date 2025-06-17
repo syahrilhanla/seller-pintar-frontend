@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	Pagination,
 	PaginationContent,
@@ -6,6 +8,7 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from "@/components/ui/pagination";
+import { usePathname } from "next/navigation";
 
 interface Props {
 	currentPage: number;
@@ -13,6 +16,8 @@ interface Props {
 }
 
 const PaginationComponent = ({ currentPage, totalItems }: Props) => {
+	const pathname = usePathname();
+
 	const totalPages = Math.ceil(totalItems / 9);
 	const pages = [];
 	for (let i = 1; i <= totalPages; i++) {
@@ -24,7 +29,7 @@ const PaginationComponent = ({ currentPage, totalItems }: Props) => {
 			<PaginationContent>
 				<PaginationItem>
 					<PaginationPrevious
-						href={`/article?page=${Math.max(1, currentPage - 1)}`}
+						href={`${pathname}?page=${Math.max(1, currentPage - 1)}`}
 						className={`${currentPage === 1 ? "hidden" : ""}`}
 					>
 						Prev
@@ -33,7 +38,7 @@ const PaginationComponent = ({ currentPage, totalItems }: Props) => {
 				{pages.map((page) => (
 					<PaginationItem key={page}>
 						<PaginationLink
-							href={`/article?page=${page}`}
+							href={`${pathname}?page=${page}`}
 							isActive={page === currentPage}
 						>
 							{page}
@@ -42,7 +47,7 @@ const PaginationComponent = ({ currentPage, totalItems }: Props) => {
 				))}
 				<PaginationItem>
 					<PaginationNext
-						href={`/article?page=${currentPage + 1}`}
+						href={`${pathname}?page=${currentPage + 1}`}
 						className={`${currentPage === totalPages ? "hidden" : ""}`}
 					>
 						Next
