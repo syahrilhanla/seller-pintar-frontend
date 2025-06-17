@@ -11,10 +11,10 @@ import Link from "next/link";
 
 interface Props {
 	logoTheme?: "light" | "dark";
-	accountName?: string; // Add dynamic account name prop
+	navbarTitle?: string;
 }
 
-const Navbar = ({ logoTheme, accountName = "Account" }: Props) => {
+const Navbar = ({ logoTheme, navbarTitle }: Props) => {
 	// Determine account name color based on theme
 	const accountNameClass =
 		logoTheme === "dark" || logoTheme === undefined
@@ -23,7 +23,11 @@ const Navbar = ({ logoTheme, accountName = "Account" }: Props) => {
 
 	return (
 		<div className="w-full h-16 flex justify-between px-2 md:px-8 duration-300 z-20 bg-white md:bg-transparent">
-			{logoTheme === "dark" ? (
+			{navbarTitle ? (
+				<p className="md:text-lg text-base text-slate-900 px-2 py-4">
+					{navbarTitle}
+				</p>
+			) : logoTheme === "dark" ? (
 				<span className="md:hidden flex font-bold text-lg p-4">
 					<Image
 						src="/Logo.svg"

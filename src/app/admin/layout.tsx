@@ -6,7 +6,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<SidebarProvider>
 			<AppSidebar />
-			<Navbar logoTheme="light" />
+			<Navbar logoTheme="light" navbarTitle="Article" />
 
 			<main>
 				{/* <SidebarTrigger /> */}
