@@ -3,10 +3,15 @@ import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/helpers";
 
 import { Article } from "@/types/article.type";
+import Link from "next/link";
 
 const ArticleCard = ({ article }: { article: Article }) => {
 	return (
-		<div key={article.id} className="overflow-hidden bg-white">
+		<Link
+			key={article.id}
+			href={`/article/${article.id}`}
+			className="overflow-hidden bg-white"
+		>
 			<Image
 				src={
 					article.imageUrl ||
@@ -37,7 +42,7 @@ const ArticleCard = ({ article }: { article: Article }) => {
 					</Badge>
 				</div>
 			</div>
-		</div>
+		</Link>
 	);
 };
 

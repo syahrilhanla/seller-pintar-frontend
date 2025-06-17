@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDebounceValue } from "usehooks-ts";
 import { useRouter } from "next/navigation";
 
@@ -16,7 +16,7 @@ const ArticleSearchInput = () => {
 	const router = useRouter();
 	const searchParams = new URLSearchParams();
 
-	useEffect(() => {
+	const updateSearchParams = useCallback(() => {
 		if (debouncedSearch) {
 			searchParams.set("search", debouncedSearch.trim());
 			router.push(`/article?${searchParams.toString()}`);
@@ -24,7 +24,11 @@ const ArticleSearchInput = () => {
 			searchParams.delete("search");
 			router.push(`/article?${searchParams.toString()}`);
 		}
-	}, [debouncedSearch]);
+	}, [debouncedSearch, router, searchParams]);
+
+	useEffect(() => {
+		updateSearchParams();
+	}, [debouncedSearch, updateSearchParams]);
 
 	return (
 		<div className="relative w-full">
