@@ -8,7 +8,11 @@ import { Input } from "@/components/ui/input";
 
 import { Search } from "lucide-react";
 
-const ArticleSearchInput = () => {
+interface Props {
+	placeholder?: string;
+}
+
+const ArticleSearchInput = ({ placeholder }: Props) => {
 	const [search, setSearch] = useState("");
 
 	const [debouncedSearch] = useDebounceValue(search, 500);
@@ -41,7 +45,7 @@ const ArticleSearchInput = () => {
 				<Search size={18} />
 			</span>
 			<Input
-				placeholder="Search articles"
+				placeholder={placeholder || "Search articles"}
 				value={search}
 				onChange={(e) => setSearch(e.target.value)}
 				className="w-full pl-10 bg-white text-slate-900"
