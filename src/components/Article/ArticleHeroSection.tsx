@@ -21,7 +21,7 @@ const ArticleHeroSection = () => {
 					Your daily dose of design insights!
 				</p>
 
-				<ArticleFilterSection />
+				<ArticleFilterSection role="User" />
 			</div>
 		</section>
 	);

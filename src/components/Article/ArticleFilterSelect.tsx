@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select";
 
 import { Category } from "@/types/category.type";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
 	categoryList: Category[];
@@ -17,6 +17,7 @@ interface Props {
 
 const ArticleFilterSelect = ({ categoryList }: Props) => {
 	const router = useRouter();
+	const pathname = usePathname();
 	const searchParams = new URLSearchParams();
 
 	const selectCategory = (value: string) => {
@@ -29,7 +30,7 @@ const ArticleFilterSelect = ({ categoryList }: Props) => {
 			else params.set("category", value);
 		}
 
-		router.push(`/article?${params.toString()}`, { scroll: false });
+		router.push(`${pathname}?${params.toString()}`, { scroll: false });
 	};
 
 	return (

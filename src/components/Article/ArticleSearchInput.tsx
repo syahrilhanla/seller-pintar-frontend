@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useDebounceValue } from "usehooks-ts";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 
@@ -14,15 +14,17 @@ const ArticleSearchInput = () => {
 	const [debouncedSearch] = useDebounceValue(search, 500);
 
 	const router = useRouter();
+	const pathname = usePathname();
+
 	const searchParams = new URLSearchParams();
 
 	const updateSearchParams = useCallback(() => {
 		if (debouncedSearch) {
 			searchParams.set("search", debouncedSearch.trim());
-			router.push(`/article?${searchParams.toString()}`);
+			router.push(`${pathname}?${searchParams.toString()}`);
 		} else {
 			searchParams.delete("search");
-			router.push(`/article?${searchParams.toString()}`);
+			router.push(`${pathname}?${searchParams.toString()}`);
 		}
 
 		// eslint-disable-next-line no-console

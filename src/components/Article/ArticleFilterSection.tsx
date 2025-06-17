@@ -4,7 +4,11 @@ import ArticleFilterSelect from "@/components/Article/ArticleFilterSelect";
 
 import ArticleSearchInput from "./ArticleSearchInput";
 
-const ArticleFilterSection = async () => {
+interface Props {
+	role: "User" | "Admin";
+}
+
+const ArticleFilterSection = async ({ role = "User" }: Props) => {
 	const categories = await axios.get(
 		`${process.env.NEXT_PUBLIC_API_URL}/categories`
 	);
@@ -13,7 +17,13 @@ const ArticleFilterSection = async () => {
 
 	return (
 		<div>
-			<div className="w-full md:w-fit flex flex-col sm:flex-row gap-3 justify-center items-center bg-blue-500 p-2 rounded-lg">
+			<div
+				className={
+					role === "Admin"
+						? "w-full flex gap-3 items-center"
+						: "w-full md:w-fit flex flex-col sm:flex-row gap-3 justify-center items-center bg-blue-500 p-2 rounded-lg"
+				}
+			>
 				<ArticleFilterSelect categoryList={categoryList} />
 
 				<ArticleSearchInput />
