@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { Category } from "@/types/category.type";
 
@@ -8,9 +8,12 @@ const DEFAULT_PAGE_SIZE = 10;
 const useAdminCategoryList = () => {
 	const [categories, setCategories] = useState<Category[]>([]);
 
+	const router = useRouter();
+
 	const searchParams = useSearchParams();
 	const search = searchParams.get("search") || "";
 	const pageNumber = Number(searchParams.get("page") || "1");
+	const refetchQuery = searchParams.get("refetch") || "";
 
 	const fetchCategories = useCallback(async () => {
 		try {
@@ -19,16 +22,29 @@ const useAdminCategoryList = () => {
 			);
 			const data = await response.json();
 			if (data && data.data) {
-				setCategories(data.data);
+				// sort categories by latest createdAt
+				const sortedCategories = data.data.sort(
+					(a: Category, b: Category) =>
+						new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+				);
+
+				setCategories(sortedCategories);
 			}
 		} catch (error) {
 			console.error("Failed to fetch categories:", error);
+		} finally {
+			// remove the refetch query parameter from the URL
+			if (refetchQuery) {
+				new URLSearchParams().delete("refetch");
+
+				router.replace(`/admin/category?${new URLSearchParams()}`);
+			}
 		}
-	}, [setCategories]);
+	}, [setCategories, refetchQuery]);
 
 	useEffect(() => {
 		fetchCategories();
-	}, [fetchCategories]);
+	}, [fetchCategories, refetchQuery]);
 
 	// match the search term with category names
 	const filteredCategories = useMemo(() => {
