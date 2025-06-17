@@ -38,7 +38,10 @@ const ArticleDetailPage = async ({ params: params }: Props) => {
 			</h1>
 
 			<Image
-				src={article.imageUrl || "/placeholder-image.png"}
+				src={
+					article.imageUrl ||
+					"/young-male-designer-using-graphics-tablet-while-working-with-com.jpg"
+				}
 				alt={article.title}
 				className="mt-4 w-full h-auto rounded-lg"
 				width={0}

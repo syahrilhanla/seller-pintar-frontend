@@ -73,10 +73,10 @@ export const AppSidebar = () => {
 												className="text-white hover:bg-blue-500 transition-colors duration-200 hover:text-white"
 												asChild
 											>
-												<button type="button" className="cursor-pointer">
+												<p className="flex items-center gap-1">
 													<item.icon />
 													<span>{item.title}</span>
-												</button>
+												</p>
 											</SidebarMenuButton>
 										</SidebarMenuItem>
 									</LogoutDialog>

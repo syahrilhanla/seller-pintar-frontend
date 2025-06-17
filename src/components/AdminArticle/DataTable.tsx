@@ -62,7 +62,10 @@ const DataTable = ({ articles, totalArticles, currentPage }: Props) => {
 							<TableRow key={article.id} className="bg-white text-slate-600">
 								<TableCell className="p-4 text-center flex items-center justify-center">
 									<Image
-										src={article.imageUrl || "/placeholder-image.png"}
+										src={
+											article.imageUrl ||
+											"/young-male-designer-using-graphics-tablet-while-working-with-com.jpg"
+										}
 										alt={article.title}
 										className="w-16 h-16 object-cover rounded"
 										quality={50}
