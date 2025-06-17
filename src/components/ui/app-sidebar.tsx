@@ -67,7 +67,7 @@ export const AppSidebar = () => {
 								}
 
 								return (
-									<LogoutDialog>
+									<LogoutDialog key={item.title}>
 										<SidebarMenuItem key={item.title}>
 											<SidebarMenuButton
 												className="text-white hover:bg-blue-500 transition-colors duration-200 hover:text-white"
