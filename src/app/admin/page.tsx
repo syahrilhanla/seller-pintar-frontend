@@ -1,4 +1,4 @@
-import DataTable from "@/components/AdminArticle/DataTable";
+import AdminArticleTable from "@/components/AdminArticle/AdminArticleTable";
 import axios from "axios";
 
 interface Props {
@@ -23,7 +23,7 @@ const AdminPage = async ({ searchParams }: Props) => {
 
 	return (
 		<div>
-			<DataTable
+			<AdminArticleTable
 				articles={articles || []}
 				totalArticles={data.total}
 				currentPage={Number(page || 1)}

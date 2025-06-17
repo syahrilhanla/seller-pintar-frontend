@@ -24,7 +24,7 @@ interface Props {
 	currentPage: number;
 }
 
-const DataTable = ({ articles, totalArticles, currentPage }: Props) => {
+const AdminArticleTable = ({ articles, totalArticles, currentPage }: Props) => {
 	return (
 		<div className="p-8">
 			<div className="rounded-md border overflow-hidden">
@@ -120,7 +120,7 @@ const DataTable = ({ articles, totalArticles, currentPage }: Props) => {
 	);
 };
 
-export default DataTable;
+export default AdminArticleTable;
 
 const TableTitle = () => {
 	const titles = ["Thumbnail", "Title", "Category", "Created at", "Action"];
