@@ -80,7 +80,7 @@ export default function LoginForm() {
 				});
 
 				if (data.role === "Admin") {
-					router.push("/admin/");
+					router.push("/admin");
 				} else {
 					router.push("/article");
 				}

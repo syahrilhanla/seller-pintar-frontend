@@ -6,7 +6,7 @@ const UserProfileLayout = ({
 	children,
 }: Readonly<{ children: React.ReactNode }>) => {
 	return (
-		<AuthGuard>
+		<AuthGuard role="User">
 			<Navbar logoTheme="light" />
 			{children}
 			<ArticleFooter />

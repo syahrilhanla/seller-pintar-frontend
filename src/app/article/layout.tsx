@@ -8,7 +8,7 @@ const ArticleLayout = ({
 	children: React.ReactNode;
 }>) => {
 	return (
-		<AuthGuard>
+		<AuthGuard role="User">
 			<Navbar />
 			{children}
 			<ArticleFooter />
