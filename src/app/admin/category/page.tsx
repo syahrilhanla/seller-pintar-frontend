@@ -1,26 +1,21 @@
-import axios from "axios";
+"use client";
 
-interface Props {
-	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}
+import AdminCategoryTable from "@/components/Category/AdminCategoryTable";
+import useAdminCategoryList from "@/components/Category/hooks/useAdminCategoryList";
 
-const CategoryPage = async ({ searchParams }: Props) => {
-	const { page, search } = await searchParams;
+const CategoryPage = () => {
+	const { paginatedCategories, totalCategories, pageNumber } =
+		useAdminCategoryList();
 
-	const { data } = await axios.get(
-		`${process.env.NEXT_PUBLIC_API_URL}/categories`,
-		{
-			params: {
-				page,
-				search,
-			},
-		}
+	return (
+		<div>
+			<AdminCategoryTable
+				categories={paginatedCategories || []}
+				totalCategories={totalCategories}
+				currentPage={pageNumber}
+			/>
+		</div>
 	);
-
-	const categories = data.data;
-	const totalCategories = data.total;
-
-	return <div>{JSON.stringify(categories)}</div>;
 };
 
 export default CategoryPage;
