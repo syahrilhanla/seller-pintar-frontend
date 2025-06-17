@@ -24,7 +24,9 @@ const ArticleSearchInput = () => {
 			searchParams.delete("search");
 			router.push(`/article?${searchParams.toString()}`);
 		}
-	}, [debouncedSearch, router, searchParams]);
+
+		// eslint-disable-next-line no-console
+	}, [debouncedSearch]);
 
 	useEffect(() => {
 		updateSearchParams();
