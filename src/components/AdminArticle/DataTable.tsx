@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import {
 	Table,
@@ -14,7 +15,8 @@ import ArticleFilterSection from "@/components/Article/ArticleFilterSection";
 import { PlusIcon } from "lucide-react";
 import { Article } from "@/types/article.type";
 import { formatDate } from "@/lib/helpers";
-import PaginationComponent from "../PaginationComponent";
+import PaginationComponent from "@/components/PaginationComponent";
+import AdminArticleDelete from "./AdminArticleDelete";
 
 interface Props {
 	articles: Article[];
@@ -40,10 +42,12 @@ const DataTable = ({ articles, totalArticles, currentPage }: Props) => {
 							<TableCell colSpan={5} className="p-4 font-semibold">
 								<div className="flex items-center justify-between">
 									<ArticleFilterSection role="Admin" />
-									<Button className="text-slate-50 cursor-pointer bg-blue-600 hover:bg-blue-500 transition-colors duration-200">
-										<PlusIcon />
-										Add Articles
-									</Button>
+									<Link href="/admin/article-form">
+										<Button className="text-slate-50 cursor-pointer bg-blue-600 hover:bg-blue-500 transition-colors duration-200">
+											<PlusIcon />
+											Add Articles
+										</Button>
+									</Link>
 								</div>
 							</TableCell>
 						</TableRow>
@@ -76,24 +80,23 @@ const DataTable = ({ articles, totalArticles, currentPage }: Props) => {
 									{formatDate(new Date(article.createdAt), true)}
 								</TableCell>
 								<TableCell className="p-4 text-center space-x-0">
-									<Button
-										variant="link"
-										className="text-blue-600 cursor-pointer underline"
-									>
-										Preview
-									</Button>
-									<Button
-										variant="link"
-										className="text-blue-600 cursor-pointer underline"
-									>
-										Edit
-									</Button>
-									<Button
-										variant="link"
-										className="text-red-500 cursor-pointer underline"
-									>
-										Delete
-									</Button>
+									<Link href={`/article/${article.id}?preview=true`}>
+										<Button
+											variant="link"
+											className="text-blue-600 cursor-pointer underline"
+										>
+											Preview
+										</Button>
+									</Link>
+									<Link href={`/admin/article-form?id=${article.id}`}>
+										<Button
+											variant="link"
+											className="text-blue-600 cursor-pointer underline"
+										>
+											Edit
+										</Button>
+									</Link>
+									<AdminArticleDelete articleId={article.id} />
 								</TableCell>
 							</TableRow>
 						))}
