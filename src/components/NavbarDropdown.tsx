@@ -26,13 +26,13 @@ const NavbarDropdown = () => {
 	return (
 		<ul className="space-y-4">
 			<Link href={"/profile"} className="flex items-center">
-				<li className="text-slate-600 px-2">My Account</li>
+				<li className="text-slate-600 px-4">My Account</li>
 			</Link>
 			<hr />
 
 			<Dialog>
 				<DialogTrigger className="w-full block">
-					<li className="cursor-pointer text-red-500 px-2 flex gap-1">
+					<li className="cursor-pointer text-red-500 px-4 flex gap-1">
 						<LogOut /> Logout
 					</li>
 				</DialogTrigger>

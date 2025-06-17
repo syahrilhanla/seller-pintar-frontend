@@ -23,6 +23,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { useLocalStorage } from "usehooks-ts";
+import { User } from "@/types/user.type";
 
 const loginSchema = z.object({
 	username: z.string().min(1, "Please enter your username"),
@@ -44,6 +46,8 @@ export default function LoginForm() {
 	const [formState, setFormState] = useState<"login" | "register">("login");
 	const [showPassword, setShowPassword] = useState(false);
 	const router = useRouter();
+
+	const [userData, setUserData] = useLocalStorage<User | null>("user", null);
 
 	const schema = formState === "register" ? registerSchema : loginSchema;
 
@@ -69,7 +73,11 @@ export default function LoginForm() {
 				toast.success("Login successful!");
 
 				// save user data to localStorage
-				localStorage.setItem("user", JSON.stringify(data));
+				setUserData({
+					username: payload.username,
+					role: data.role,
+					password: payload.password, // store password for profile page
+				});
 
 				if (data.role === "Admin") {
 					router.push("/admin/");
