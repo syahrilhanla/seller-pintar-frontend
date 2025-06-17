@@ -21,11 +21,11 @@ const ArticleSearchInput = () => {
 	const updateSearchParams = useCallback(() => {
 		if (debouncedSearch) {
 			searchParams.set("search", debouncedSearch.trim());
-			router.push(`${pathname}?${searchParams.toString()}`);
 		} else {
 			searchParams.delete("search");
-			router.push(`${pathname}?${searchParams.toString()}`);
 		}
+
+		router.push(`${pathname}?${searchParams.toString()}`);
 
 		// eslint-disable-next-line no-console
 	}, [debouncedSearch]);

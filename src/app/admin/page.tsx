@@ -12,7 +12,7 @@ const AdminPage = async ({ searchParams }: Props) => {
 		`${process.env.NEXT_PUBLIC_API_URL}/articles`,
 		{
 			params: {
-				search,
+				title: search,
 				category,
 				page,
 			},

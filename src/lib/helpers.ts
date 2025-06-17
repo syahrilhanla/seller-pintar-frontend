@@ -11,7 +11,7 @@ export const formatDate = (date: Date, fullTime?: boolean) => {
     };
     // Format: April 13, 2025 10:55:12
     const formatted = new Intl.DateTimeFormat("en-US", options).format(date);
-    return formatted.replace(",", "");
+    return formatted;
   }
 
   // Default: only date
