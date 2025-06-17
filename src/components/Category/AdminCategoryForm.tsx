@@ -1,3 +1,5 @@
+"use client";
+
 import { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 
@@ -6,6 +8,7 @@ import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useReadLocalStorage } from "usehooks-ts";
+import { toast } from "sonner";
 
 import {
 	Dialog,
@@ -20,6 +23,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { User } from "@/types/user.type";
+import { LoaderCircle } from "lucide-react";
 
 const schema = z.object({
 	name: z.string().min(1, "Category field cannot be empty"),
@@ -46,12 +50,9 @@ const AdminCategoryForm = ({ children, mode }: Props) => {
 	});
 
 	const onSubmit: SubmitHandler<FormData> = async (payload: FormData) => {
-		// Handle form submission logic here
-		console.log("Form submitted", payload);
-
 		try {
 			if (mode === "create") {
-				const { data } = await axios.post(
+				await axios.post(
 					`${process.env.NEXT_PUBLIC_API_URL}/categories`,
 					payload,
 					{
@@ -61,14 +62,25 @@ const AdminCategoryForm = ({ children, mode }: Props) => {
 					}
 				);
 
-				console.log(data);
 				router.push("/admin/category?refetch=true");
 			}
 
 			if (mode === "update") {
 				// Update logic here
 			}
-		} catch (error) {}
+
+			toast.success(
+				`Category ${mode === "create" ? "created" : "updated"} successfully`
+			);
+
+			// close the dialog after submission
+			const cancelButton = document.getElementById("category-cancel-button");
+			cancelButton?.click();
+		} catch (error) {
+			toast.error(
+				`Failed to ${mode === "create" ? "create" : "update"} category`
+			);
+		}
 	};
 
 	return (
@@ -101,7 +113,7 @@ const AdminCategoryForm = ({ children, mode }: Props) => {
 				</form>
 
 				<DialogFooter className="sm:justify-end">
-					<DialogClose asChild>
+					<DialogClose asChild id="category-cancel-button">
 						<Button
 							type="button"
 							className="cursor-pointer"
@@ -116,7 +128,13 @@ const AdminCategoryForm = ({ children, mode }: Props) => {
 						className="cursor-pointer"
 						disabled={isSubmitting || Object.keys(errors).length > 0}
 					>
-						{mode === "create" ? "Create" : "Save Changes"}
+						{isSubmitting ? (
+							<LoaderCircle className="animate-spin" />
+						) : mode === "create" ? (
+							"Create"
+						) : (
+							"Save Changes"
+						)}
 					</Button>
 				</DialogFooter>
 			</DialogContent>
