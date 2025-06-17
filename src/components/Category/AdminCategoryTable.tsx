@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import {
 	Table,
 	TableBody,
@@ -13,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import PaginationComponent from "@/components/PaginationComponent";
 import AdminCategoryDelete from "@/components/Category/AdminCategoryDelete";
 import ArticleSearchInput from "@/components/Article/ArticleSearchInput";
+import AdminCategoryForm from "./AdminCategoryForm";
 
 import { PlusIcon } from "lucide-react";
 import { formatDate } from "@/lib/helpers";
@@ -50,12 +49,12 @@ const AdminCategoryTable = ({
 										<ArticleSearchInput placeholder="Search category" />
 									</div>
 
-									<Link href="/admin/article-form">
+									<AdminCategoryForm mode="create">
 										<Button className="text-slate-50 cursor-pointer bg-blue-600 hover:bg-blue-500 transition-colors duration-200">
 											<PlusIcon />
 											Add Category
 										</Button>
-									</Link>
+									</AdminCategoryForm>
 								</div>
 							</TableCell>
 						</TableRow>
@@ -75,14 +74,14 @@ const AdminCategoryTable = ({
 									{formatDate(new Date(category.createdAt), true)}
 								</TableCell>
 								<TableCell className="p-4 text-center space-x-0">
-									<Link href={`/admin/article-form?id=${category.id}`}>
+									<AdminCategoryForm mode="update">
 										<Button
 											variant="link"
 											className="text-blue-600 cursor-pointer underline"
 										>
 											Edit
 										</Button>
-									</Link>
+									</AdminCategoryForm>
 
 									<AdminCategoryDelete
 										categoryId={category.id}
