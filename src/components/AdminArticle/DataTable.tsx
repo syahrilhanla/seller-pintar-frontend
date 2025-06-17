@@ -14,17 +14,19 @@ import ArticleFilterSection from "@/components/Article/ArticleFilterSection";
 import { PlusIcon } from "lucide-react";
 import { Article } from "@/types/article.type";
 import { formatDate } from "@/lib/helpers";
+import PaginationComponent from "../PaginationComponent";
 
 interface Props {
 	articles: Article[];
 	totalArticles: number;
+	currentPage: number;
 }
 
-const DataTable = ({ articles, totalArticles }: Props) => {
+const DataTable = ({ articles, totalArticles, currentPage }: Props) => {
 	return (
 		<div className="p-8">
 			<div className="rounded-md border overflow-hidden">
-				<Table>
+				<Table className="overflow-hidden">
 					<TableHeader>
 						<TableRow className="bg-white">
 							<TableHead colSpan={5} className="p-4">
@@ -95,6 +97,16 @@ const DataTable = ({ articles, totalArticles }: Props) => {
 								</TableCell>
 							</TableRow>
 						))}
+						<TableRow className="bg-white text-slate-600">
+							<TableCell colSpan={5}>
+								<div className="w-full -my-4 -mb-6 flex items-center justify-center">
+									<PaginationComponent
+										totalItems={totalArticles}
+										currentPage={currentPage}
+									/>
+								</div>
+							</TableCell>
+						</TableRow>
 					</TableBody>
 				</Table>
 			</div>

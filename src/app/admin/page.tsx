@@ -6,7 +6,7 @@ interface Props {
 }
 
 const AdminPage = async ({ searchParams }: Props) => {
-	const { search, category } = await searchParams;
+	const { search, category, page } = await searchParams;
 
 	const { data } = await axios.get(
 		`${process.env.NEXT_PUBLIC_API_URL}/articles`,
@@ -14,6 +14,7 @@ const AdminPage = async ({ searchParams }: Props) => {
 			params: {
 				search,
 				category,
+				page,
 			},
 		}
 	);
@@ -22,7 +23,11 @@ const AdminPage = async ({ searchParams }: Props) => {
 
 	return (
 		<div>
-			<DataTable articles={articles || []} totalArticles={data.total} />
+			<DataTable
+				articles={articles || []}
+				totalArticles={data.total}
+				currentPage={Number(page || 1)}
+			/>
 		</div>
 	);
 };
