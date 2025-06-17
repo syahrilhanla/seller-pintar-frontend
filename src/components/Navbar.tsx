@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
 	Popover,
 	PopoverTrigger,
@@ -71,7 +71,6 @@ const Navbar = ({ logoTheme, accountName = "Account" }: Props) => {
 				<PopoverTrigger className="mr-4 my-2">
 					<div className="flex items-center gap-2 cursor-pointer">
 						<Avatar>
-							<AvatarImage src="invalidUrl" />
 							<AvatarFallback className="bg-blue-200 text-blue-900">
 								SH
 							</AvatarFallback>
