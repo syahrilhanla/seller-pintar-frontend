@@ -12,6 +12,8 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 			? "Articles"
 			: pathname === "/admin/profile"
 			? "User Profile"
+			: pathname === "/admin/category"
+			? "Category"
 			: "";
 
 	return (
