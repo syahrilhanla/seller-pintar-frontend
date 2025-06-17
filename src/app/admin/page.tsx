@@ -18,11 +18,11 @@ const AdminPage = async ({ searchParams }: Props) => {
 		}
 	);
 
-	const articles = data;
+	const articles = data.data;
 
 	return (
 		<div>
-			<DataTable />
+			<DataTable articles={articles || []} totalArticles={data.total} />
 		</div>
 	);
 };

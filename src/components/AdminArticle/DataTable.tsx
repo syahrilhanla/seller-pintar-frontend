@@ -1,4 +1,3 @@
-import { PlusIcon } from "lucide-react";
 import {
 	Table,
 	TableBody,
@@ -6,11 +5,20 @@ import {
 	TableHead,
 	TableHeader,
 	TableRow,
-} from "../ui/table";
-import { Button } from "../ui/button";
-import ArticleFilterSection from "../Article/ArticleFilterSection";
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import ArticleFilterSection from "@/components/Article/ArticleFilterSection";
 
-const DataTable = () => {
+import { PlusIcon } from "lucide-react";
+import { Article } from "@/types/article.type";
+import Image from "next/image";
+
+interface Props {
+	articles: Article[];
+	totalArticles: number;
+}
+
+const DataTable = ({ articles, totalArticles }: Props) => {
 	return (
 		<div className="p-8">
 			<div className="rounded-md border overflow-hidden">
@@ -18,10 +26,11 @@ const DataTable = () => {
 					<TableHeader>
 						<TableRow className="bg-white">
 							<TableHead colSpan={5} className="p-4">
-								Total Articles: 25
+								Total Articles: {totalArticles}
 							</TableHead>
 						</TableRow>
 					</TableHeader>
+
 					<TableBody>
 						<TableRow className="bg-white">
 							<TableCell colSpan={5} className="p-4 font-semibold">
@@ -34,6 +43,44 @@ const DataTable = () => {
 								</div>
 							</TableCell>
 						</TableRow>
+
+						{/* table title */}
+						<TableRow>
+							<TableTitle />
+						</TableRow>
+						{/* table title */}
+
+						{articles.map((article) => (
+							<TableRow key={article.id} className="bg-white">
+								<TableCell className="p-4 text-center flex items-center justify-center">
+									<Image
+										src={article.imageUrl || "/placeholder-image.png"}
+										alt={article.title}
+										className="w-16 h-16 object-cover rounded"
+										quality={50}
+										width={0}
+										height={0}
+									/>
+								</TableCell>
+								<TableCell className="p-4 text-center">
+									{article.title}
+								</TableCell>
+								<TableCell className="p-4 text-center">
+									{article.category.name}
+								</TableCell>
+								<TableCell className="p-4 text-center">
+									{new Date(article.createdAt).toLocaleDateString()}
+								</TableCell>
+								<TableCell className="p-4 text-center">
+									<Button
+										variant="link"
+										className="text-blue-600 hover:bg-blue-50 underline"
+									>
+										View
+									</Button>
+								</TableCell>
+							</TableRow>
+						))}
 					</TableBody>
 				</Table>
 			</div>
@@ -42,3 +89,17 @@ const DataTable = () => {
 };
 
 export default DataTable;
+
+const TableTitle = () => {
+	const titles = ["Thumbnail", "Title", "Category", "Created at", "Action"];
+
+	return (
+		<>
+			{titles.map((title) => (
+				<TableCell key={title} className="p-4 bg-inherit text-center">
+					{title}
+				</TableCell>
+			))}
+		</>
+	);
+};
