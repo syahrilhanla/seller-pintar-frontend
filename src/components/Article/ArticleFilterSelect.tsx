@@ -36,13 +36,19 @@ const ArticleFilterSelect = ({ categoryList }: Props) => {
 	return (
 		<>
 			<Select onValueChange={selectCategory}>
-				<SelectTrigger className="w-full sm:w-fit bg-white text-slate-900 hover:bg-slate-50 focus:bg-slate-50">
+				<SelectTrigger className="w-full sm:w-fit bg-white text-slate-900 hover:bg-slate-50 focus:bg-slate-50 cursor-pointer">
 					<SelectValue placeholder="Select category" />
 				</SelectTrigger>
 				<SelectContent>
-					<SelectItem value="all">All Categories</SelectItem>
+					<SelectItem className="cursor-pointer" value="all">
+						All Categories
+					</SelectItem>
 					{categoryList.map((category) => (
-						<SelectItem key={category.id} value={category.id || "Management"}>
+						<SelectItem
+							key={category.id}
+							className="cursor-pointer"
+							value={category.id || "Management"}
+						>
 							{category.name}
 						</SelectItem>
 					))}

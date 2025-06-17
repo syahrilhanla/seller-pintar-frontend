@@ -9,7 +9,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 			<div className="w-full">
 				<Navbar logoTheme="light" navbarTitle="Articles" />
 
-				<main className="bg-gray-100">
+				<main className="bg-gray-100 h-[calc(100dvh-4rem)] flex flex-col">
 					{/* <SidebarTrigger /> */}
 					{children}
 				</main>
