@@ -4,7 +4,6 @@ import axios from "axios";
 import ArticleCard from "@/components/Article/ArticleCard";
 import ArticleHeroSection from "@/components/Article/ArticleHeroSection";
 import PaginationComponent from "@/components/PaginationComponent";
-import AuthGuard from "@/components/AuthGuard";
 
 interface Props {
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -29,29 +28,27 @@ export default async function ArticlePage({ searchParams }: Props) {
 	const articles: Article[] = data.data;
 
 	return (
-		<AuthGuard>
-			<div className="min-h-screen bg-gradient-to-br bg-white">
-				<div className="w-full">
-					<ArticleHeroSection />
+		<div className="min-h-screen bg-gradient-to-br bg-white">
+			<div className="w-full">
+				<ArticleHeroSection />
 
-					<div className="px-5 md:px-24">
-						<p className="mt-10 mb-4 text-slate-600 text-sm md:text-base">
-							Showing: {data?.data?.length} of {data?.total} articles
-						</p>
+				<div className="px-5 md:px-24">
+					<p className="mt-10 mb-4 text-slate-600 text-sm md:text-base">
+						Showing: {data?.data?.length} of {data?.total} articles
+					</p>
 
-						<div className="grid gap-8 md:grid-cols-3">
-							{articles.map((article) => (
-								<ArticleCard key={article.id} article={article} />
-							))}
-						</div>
+					<div className="grid gap-8 md:grid-cols-3">
+						{articles.map((article) => (
+							<ArticleCard key={article.id} article={article} />
+						))}
 					</div>
-
-					<PaginationComponent
-						currentPage={Number(page) || 1}
-						totalItems={data?.total || 1}
-					/>
 				</div>
+
+				<PaginationComponent
+					currentPage={Number(page) || 1}
+					totalItems={data?.total || 1}
+				/>
 			</div>
-		</AuthGuard>
+		</div>
 	);
 }

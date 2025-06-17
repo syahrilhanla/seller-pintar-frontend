@@ -1,9 +1,12 @@
-import ArticleCard from "@/components/Article/ArticleCard";
-import { formatDate } from "@/lib/helpers";
-import { Article } from "@/types/article.type";
 import axios from "axios";
 import { Dot } from "lucide-react";
 import Image from "next/image";
+
+import { formatDate } from "@/lib/helpers";
+
+import ArticleCard from "@/components/Article/ArticleCard";
+
+import { Article } from "@/types/article.type";
 
 interface Props {
 	params: Promise<{ id: string }>;

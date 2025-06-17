@@ -1,4 +1,5 @@
 import ArticleFooter from "@/components/Article/ArticleFooter";
+import AuthGuard from "@/components/AuthGuard";
 import Navbar from "@/components/Navbar";
 
 const ArticleLayout = ({
@@ -7,13 +8,11 @@ const ArticleLayout = ({
 	children: React.ReactNode;
 }>) => {
 	return (
-		<>
+		<AuthGuard>
 			<Navbar />
-
-			{/* Main content area */}
 			{children}
 			<ArticleFooter />
-		</>
+		</AuthGuard>
 	);
 };
 
