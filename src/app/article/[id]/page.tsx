@@ -50,13 +50,19 @@ const ArticleDetailPage = async ({ params: params }: Props) => {
 				/>
 			</main>
 
-			<section className="w-full mt-4 px-8">
-				<h3 className="text-2xl text-slate-900">Other articles</h3>
+			<section className="w-full mt-4 md:px-8">
+				<h3 className="text-2xl font-semibold text-slate-900">
+					Other articles
+				</h3>
 
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-					{relatedArticles.data.map((relatedArticle: Article) => (
-						<ArticleCard article={relatedArticle} key={relatedArticle.id} />
-					))}
+					{relatedArticles.data
+						.filter(
+							(relatedArticle: Article) => relatedArticle.id !== article.id
+						)
+						.map((relatedArticle: Article) => (
+							<ArticleCard article={relatedArticle} key={relatedArticle.id} />
+						))}
 				</div>
 			</section>
 		</div>
