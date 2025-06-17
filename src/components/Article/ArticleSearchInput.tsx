@@ -30,6 +30,7 @@ const ArticleSearchInput = () => {
 
 	useEffect(() => {
 		updateSearchParams();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedSearch, updateSearchParams]);
 
 	return (
