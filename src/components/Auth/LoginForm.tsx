@@ -77,6 +77,7 @@ export default function LoginForm() {
 					username: payload.username,
 					role: data.role,
 					password: payload.password, // store password for profile page
+					token: data.token,
 				});
 
 				if (data.role === "Admin") {
