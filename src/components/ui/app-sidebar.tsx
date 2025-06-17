@@ -1,4 +1,5 @@
-import { LogOut, Newspaper, Tag } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 import {
 	Sidebar,
@@ -10,8 +11,9 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import Image from "next/image";
-import Link from "next/link";
+import LogoutDialog from "@/components/LogoutDialog";
+
+import { LogOut, Newspaper, Tag } from "lucide-react";
 
 const menuItems = [
 	{
@@ -47,19 +49,39 @@ export const AppSidebar = () => {
 				<SidebarGroup>
 					<SidebarGroupContent>
 						<SidebarMenu className="px-2">
-							{menuItems.map((item) => (
-								<SidebarMenuItem key={item.title}>
-									<SidebarMenuButton
-										className="text-white hover:bg-blue-500 transition-colors duration-200 hover:text-white"
-										asChild
-									>
-										<Link href={item.url}>
-											<item.icon />
-											<span>{item.title}</span>
-										</Link>
-									</SidebarMenuButton>
-								</SidebarMenuItem>
-							))}
+							{menuItems.map((item) => {
+								if (item.title !== "Logout") {
+									return (
+										<SidebarMenuItem key={item.title}>
+											<SidebarMenuButton
+												className="text-white hover:bg-blue-500 transition-colors duration-200 hover:text-white"
+												asChild
+											>
+												<Link href={item.url}>
+													<item.icon />
+													<span>{item.title}</span>
+												</Link>
+											</SidebarMenuButton>
+										</SidebarMenuItem>
+									);
+								}
+
+								return (
+									<LogoutDialog>
+										<SidebarMenuItem key={item.title}>
+											<SidebarMenuButton
+												className="text-white hover:bg-blue-500 transition-colors duration-200 hover:text-white"
+												asChild
+											>
+												<button type="button" className="cursor-pointer">
+													<item.icon />
+													<span>{item.title}</span>
+												</button>
+											</SidebarMenuButton>
+										</SidebarMenuItem>
+									</LogoutDialog>
+								);
+							})}
 						</SidebarMenu>
 					</SidebarGroupContent>
 				</SidebarGroup>
