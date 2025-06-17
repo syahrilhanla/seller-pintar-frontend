@@ -1,3 +1,4 @@
+import ArticleFooter from "@/components/Article/ArticleFooter";
 import Navbar from "@/components/Navbar";
 
 const ArticleLayout = ({
@@ -11,6 +12,7 @@ const ArticleLayout = ({
 
 			{/* Main content area */}
 			{children}
+			<ArticleFooter />
 		</>
 	);
 };

@@ -7,6 +7,7 @@ import {
 	PopoverContent,
 } from "@/components/ui/popover";
 import NavbarDropdown from "@/components/NavbarDropdown";
+import Link from "next/link";
 
 interface Props {
 	logoTheme?: "light" | "dark";
@@ -21,7 +22,7 @@ const Navbar = ({ logoTheme, accountName = "Account" }: Props) => {
 			: "text-slate-800 underline";
 
 	return (
-		<div className=" w-full absolute flex justify-between top-0 left-0 z-20 bg-white md:bg-transparent">
+		<div className=" w-full absolute flex justify-between px-2 md:px-8 duration-300 top-0 left-0 z-20 bg-white md:bg-transparent">
 			{logoTheme === "dark" ? (
 				<span className="md:hidden flex font-bold text-lg p-4">
 					<Image
@@ -33,7 +34,7 @@ const Navbar = ({ logoTheme, accountName = "Account" }: Props) => {
 					/>
 				</span>
 			) : logoTheme === "light" ? (
-				<span className="font-bold text-lg p-4 bg-white">
+				<Link href="/" className="font-bold text-lg p-4 bg-white">
 					<Image
 						src="/Frame.svg"
 						alt="Logo"
@@ -41,10 +42,10 @@ const Navbar = ({ logoTheme, accountName = "Account" }: Props) => {
 						height={30}
 						className="mx-auto my-2"
 					/>
-				</span>
+				</Link>
 			) : (
 				// if no theme is specified, dynamically render based on screen size
-				<>
+				<Link href="/" className="flex items-center">
 					<span className="md:hidden flex font-bold text-lg p-4">
 						<Image
 							src="/Frame.svg"
@@ -63,7 +64,7 @@ const Navbar = ({ logoTheme, accountName = "Account" }: Props) => {
 							className="mx-auto my-2"
 						/>
 					</span>
-				</>
+				</Link>
 			)}
 
 			<Popover>

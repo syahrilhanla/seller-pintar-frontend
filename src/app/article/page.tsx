@@ -4,7 +4,6 @@ import axios from "axios";
 import ArticleCard from "@/components/Article/ArticleCard";
 import ArticleHeroSection from "@/components/Article/ArticleHeroSection";
 import PaginationComponent from "@/components/PaginationComponent";
-import ArticleFooter from "@/components/Article/ArticleFooter";
 import AuthGuard from "@/components/AuthGuard";
 
 interface Props {
@@ -51,8 +50,6 @@ export default async function ArticlePage({ searchParams }: Props) {
 						currentPage={Number(page) || 1}
 						totalItems={data?.total || 1}
 					/>
-
-					<ArticleFooter />
 				</div>
 			</div>
 		</AuthGuard>
