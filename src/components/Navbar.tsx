@@ -22,7 +22,7 @@ const Navbar = ({ logoTheme, accountName = "Account" }: Props) => {
 			: "text-slate-800 underline";
 
 	return (
-		<div className=" w-full absolute flex justify-between px-2 md:px-8 duration-300 top-0 left-0 z-20 bg-white md:bg-transparent">
+		<div className="w-full h-16 flex justify-between px-2 md:px-8 duration-300 z-20 bg-white md:bg-transparent">
 			{logoTheme === "dark" ? (
 				<span className="md:hidden flex font-bold text-lg p-4">
 					<Image
@@ -66,7 +66,6 @@ const Navbar = ({ logoTheme, accountName = "Account" }: Props) => {
 					</span>
 				</Link>
 			)}
-
 			<Popover>
 				<PopoverTrigger className="mr-4 my-2">
 					<div className="flex items-center gap-2 cursor-pointer">
