@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import {
 	Table,
 	TableBody,
@@ -11,7 +13,7 @@ import ArticleFilterSection from "@/components/Article/ArticleFilterSection";
 
 import { PlusIcon } from "lucide-react";
 import { Article } from "@/types/article.type";
-import Image from "next/image";
+import { formatDate } from "@/lib/helpers";
 
 interface Props {
 	articles: Article[];
@@ -51,7 +53,7 @@ const DataTable = ({ articles, totalArticles }: Props) => {
 						{/* table title */}
 
 						{articles.map((article) => (
-							<TableRow key={article.id} className="bg-white">
+							<TableRow key={article.id} className="bg-white text-slate-600">
 								<TableCell className="p-4 text-center flex items-center justify-center">
 									<Image
 										src={article.imageUrl || "/placeholder-image.png"}
@@ -69,14 +71,26 @@ const DataTable = ({ articles, totalArticles }: Props) => {
 									{article.category.name}
 								</TableCell>
 								<TableCell className="p-4 text-center">
-									{new Date(article.createdAt).toLocaleDateString()}
+									{formatDate(new Date(article.createdAt), true)}
 								</TableCell>
-								<TableCell className="p-4 text-center">
+								<TableCell className="p-4 text-center space-x-0">
 									<Button
 										variant="link"
-										className="text-blue-600 hover:bg-blue-50 underline"
+										className="text-blue-600 cursor-pointer underline"
 									>
-										View
+										Preview
+									</Button>
+									<Button
+										variant="link"
+										className="text-blue-600 cursor-pointer underline"
+									>
+										Edit
+									</Button>
+									<Button
+										variant="link"
+										className="text-red-500 cursor-pointer underline"
+									>
+										Delete
 									</Button>
 								</TableCell>
 							</TableRow>
