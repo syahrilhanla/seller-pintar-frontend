@@ -1,3 +1,4 @@
+import DataTable from "@/components/AdminArticle/DataTable";
 import axios from "axios";
 
 interface Props {
@@ -19,9 +20,11 @@ const AdminPage = async ({ searchParams }: Props) => {
 
 	const articles = data;
 
-	console.log(articles);
-
-	return <div></div>;
+	return (
+		<div>
+			<DataTable />
+		</div>
+	);
 };
 
 export default AdminPage;
