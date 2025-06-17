@@ -20,7 +20,7 @@ const UserProfilePage = () => {
 	}
 	return (
 		<div className="max-w-lg mx-auto flex justify-center items-center">
-			<div className="w-full flex flex-col items-center justify-center h-[calc(100dvh-5rem)] px-4 py-8">
+			<div className="w-full flex flex-col items-center justify-center px-4 py-8">
 				<div className="text-xl font-semibold mb-8">User Profile</div>
 
 				<div className="w-24 h-24 rounded-full bg-blue-200 flex items-center justify-center text-blue-900 font-medium text-3xl mb-6">

@@ -7,9 +7,11 @@ const UserProfileLayout = ({
 }: Readonly<{ children: React.ReactNode }>) => {
 	return (
 		<AuthGuard role="User">
-			<Navbar logoTheme="light" />
-			{children}
-			<ArticleFooter />
+			<div className="flex flex-col min-h-screen relative">
+				<Navbar logoTheme="light" />
+				{children}
+				<ArticleFooter />
+			</div>
 		</AuthGuard>
 	);
 };
