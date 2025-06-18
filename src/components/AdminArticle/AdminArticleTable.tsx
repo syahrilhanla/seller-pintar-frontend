@@ -63,7 +63,7 @@ const AdminArticleTable = ({ articles, totalArticles, currentPage }: Props) => {
 								<TableCell className="p-4 text-center flex items-center justify-center">
 									<Image
 										src={
-											article.imageUrl ||
+											article.imageUrl?.trim() ||
 											"/young-male-designer-using-graphics-tablet-while-working-with-com.jpg"
 										}
 										alt={article.title}

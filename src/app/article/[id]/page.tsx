@@ -39,7 +39,7 @@ const ArticleDetailPage = async ({ params: params }: Props) => {
 
 			<Image
 				src={
-					article.imageUrl ||
+					article.imageUrl?.trim() ||
 					"/young-male-designer-using-graphics-tablet-while-working-with-com.jpg"
 				}
 				alt={article.title}
