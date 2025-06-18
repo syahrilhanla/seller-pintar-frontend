@@ -54,9 +54,11 @@ const ArticleFilterSelect = ({ categoryList, onSelectWithoutQuery }: Props) => {
 					<SelectValue placeholder="Select category" />
 				</SelectTrigger>
 				<SelectContent>
-					<SelectItem className="cursor-pointer" value="all">
-						All Categories
-					</SelectItem>
+					{!onSelectWithoutQuery && (
+						<SelectItem className="cursor-pointer" value="all">
+							All Categories
+						</SelectItem>
+					)}
 					{categoryList.map((category) => (
 						<SelectItem
 							key={category.id}

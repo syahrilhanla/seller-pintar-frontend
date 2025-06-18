@@ -116,7 +116,11 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 	);
 };
 
-const ArticleRichTextEditor = () => {
+interface Props {
+	onUpdate: (content: string, htmlContent: string) => void;
+}
+
+const ArticleRichTextEditor = ({ onUpdate }: Props) => {
 	const editor = useEditor({
 		extensions: [
 			StarterKit,
@@ -142,6 +146,8 @@ const ArticleRichTextEditor = () => {
 			// You can handle the content update here if needed
 			const emptyText = editor.getText().trim();
 			const htmlContent = editor.getHTML();
+
+			onUpdate(emptyText, htmlContent);
 		},
 	});
 
