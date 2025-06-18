@@ -26,6 +26,10 @@ const ArticleDetailPage = async ({ params: params }: Props) => {
 		`${process.env.NEXT_PUBLIC_API_URL}/articles?category=${category}&limit=3`
 	);
 
+	const filteredRelatedArticles = relatedArticles.data.filter(
+		(relatedArticle: Article) => relatedArticle.id !== article.id
+	);
+
 	return (
 		<div className="max-w-5xl min-h-dvh mx-auto mt-12 px-4 gap-4 py-8 flex flex-col items-center">
 			<p className=" text-sm md:text-base text-slate-600 flex gap-1 items-center">
@@ -62,13 +66,15 @@ const ArticleDetailPage = async ({ params: params }: Props) => {
 				</h3>
 
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-					{relatedArticles.data
-						.filter(
-							(relatedArticle: Article) => relatedArticle.id !== article.id
-						)
-						.map((relatedArticle: Article) => (
-							<ArticleCard article={relatedArticle} key={relatedArticle.id} />
-						))}
+					{filteredRelatedArticles.length === 0 && (
+						<p className="text-gray-500 col-span-3">
+							No related articles found.
+						</p>
+					)}
+
+					{filteredRelatedArticles.map((relatedArticle: Article) => (
+						<ArticleCard article={relatedArticle} key={relatedArticle.id} />
+					))}
 				</div>
 			</section>
 		</div>
