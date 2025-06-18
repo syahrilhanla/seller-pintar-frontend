@@ -25,11 +25,11 @@ export default function AuthGuard({ children, role }: Props) {
 		"/admin/profile",
 		"/admin/article-form",
 		"/admin/category",
-		"/article/[id]/preview",
+		"/article/blob/preview",
 	];
 
 	useEffect(() => {
-		if (!user || user.role !== role) {
+		if (!user) {
 			router.replace("/login");
 			return;
 		}
