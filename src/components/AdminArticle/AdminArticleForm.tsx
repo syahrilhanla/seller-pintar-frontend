@@ -61,7 +61,7 @@ const AdminArticleForm = () => {
 						The existing category list can be seen in the{" "}
 						<span className="text-blue-500 underline hover:text-blue-700 duration-300">
 							<Link
-								href="/admin/categories"
+								href="/admin/category"
 								target="_blank"
 								rel="noopener noreferrer"
 							>

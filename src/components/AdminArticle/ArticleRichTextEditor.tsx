@@ -125,7 +125,12 @@ const ArticleRichTextEditor = () => {
 		},
 	});
 
-	const wordCount = editor ? editor.getText().trim().split(/\s+/).length : 0;
+	const word =
+		editor && editor.getText().trim().split(/\s+/)
+			? editor.getText().trim().split(/\s+/)
+			: [];
+
+	const wordCount = word[0] === "" ? 0 : word.length;
 
 	return (
 		<div className="mt-4 border rounded-lg shadow bg-white">
