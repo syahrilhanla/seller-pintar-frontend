@@ -4,6 +4,7 @@ import Link from "next/link";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -86,14 +87,47 @@ const AdminArticleForm = () => {
 								}
 							}}
 						/>
-						<div
-							className="h-40 w-64 border-dashed border-2 border-gray-300 text-xs text-slate-500 p-4 rounded-md text-center cursor-pointer hover:bg-gray-50 transition-colors flex flex-col gap-2 items-center justify-center"
-							onClick={() => document.getElementById("thumbnail")?.click()}
-						>
-							<ImagePlus size={18} />
-							<p className="underline">Click to select a file</p>
-							<p>Support File Type: jpg or png</p>
-						</div>
+						{getValues("thumbnail")?.name ? (
+							<>
+								<div
+									className="h-40 w-64 border border-gray-300 text-xs text-slate-500 p-1 rounded-md text-center cursor-pointer hover:bg-gray-50 transition-colors flex flex-col gap-2 items-center justify-center"
+									onClick={() => document.getElementById("thumbnail")?.click()}
+								>
+									<Image
+										src={URL.createObjectURL(getValues("thumbnail"))}
+										alt="Thumbnail Preview"
+										width={256}
+										height={256}
+										className="object-cover rounded-md w-48 h-28"
+									/>
+
+									<div className="w-full flex justify-center gap-2">
+										<Button
+											variant="link"
+											className="w-16 h-4 text-blue-600 underline cursor-pointer"
+										>
+											Change
+										</Button>
+
+										<Button
+											variant="link"
+											className="w-16 h-4 text-red-500 underline cursor-pointer"
+										>
+											Remove
+										</Button>
+									</div>
+								</div>
+							</>
+						) : (
+							<div
+								className="h-40 w-64 border-dashed border-2 border-gray-300 text-xs text-slate-500 p-4 rounded-md text-center cursor-pointer hover:bg-gray-50 transition-colors flex flex-col gap-2 items-center justify-center"
+								onClick={() => document.getElementById("thumbnail")?.click()}
+							>
+								<ImagePlus size={18} />
+								<p className="underline">Click to select a file</p>
+								<p>Support File Type: jpg or png</p>
+							</div>
+						)}
 
 						{!getValues("thumbnail")?.name && errors.thumbnail ? (
 							<p className="text-red-500 text-sm">Please select a thumbnail</p>
