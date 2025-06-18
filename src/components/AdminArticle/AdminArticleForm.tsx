@@ -73,14 +73,14 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 	});
 
 	const handlePreview = async () => {
-		function fileToBase64(file: File): Promise<string> {
+		const fileToBase64 = (file: File): Promise<string> => {
 			return new Promise((resolve, reject) => {
 				const reader = new FileReader();
 				reader.onload = () => resolve(reader.result as string);
 				reader.onerror = reject;
 				reader.readAsDataURL(file);
 			});
-		}
+		};
 
 		const thumbnail = await fileToBase64(watch("thumbnail"));
 
@@ -92,9 +92,13 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 			user: user,
 		};
 
-		console.log("Preview data:", previewData);
-
+		// set the preview data in local storage
 		setPreview(previewData);
+
+		setTimeout(() => {
+			// redirect to the preview page
+			window.open("/article/blob/preview", "_blank", "noopener,noreferrer");
+		}, 500);
 	};
 
 	const onSubmit: SubmitHandler<ArticleFormData> = async (
