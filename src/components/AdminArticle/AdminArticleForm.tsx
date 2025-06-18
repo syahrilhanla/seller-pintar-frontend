@@ -13,6 +13,7 @@ import ArticleRichTextEditor from "./ArticleRichTextEditor";
 import AdminArticleThumbnail from "./AdminArticleThumbnail";
 
 import { ArrowLeft } from "lucide-react";
+import { Category } from "@/types/category.type";
 
 const schema = z.object({
 	title: z.string().min(1, "Please enter title"),
@@ -43,7 +44,11 @@ const schema = z.object({
 
 export type ArticleFormData = z.infer<typeof schema>;
 
-const AdminArticleForm = () => {
+interface Props {
+	categoryList: Category[];
+}
+
+const AdminArticleForm = ({ categoryList }: Props) => {
 	const {
 		register,
 		unregister,
@@ -105,7 +110,7 @@ const AdminArticleForm = () => {
 					<div className="space-y-2">
 						<Label htmlFor="category">Category</Label>
 						<ArticleFilterSelect
-							categoryList={[]}
+							categoryList={categoryList}
 							onSelectWithoutQuery={(categoryId) => {
 								setValue("category", categoryId, { shouldValidate: true });
 							}}

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { ImagePlus } from "lucide-react";
 
+// types from "react-hook-form"
 import {
 	FieldErrors,
 	UseFormRegister,
