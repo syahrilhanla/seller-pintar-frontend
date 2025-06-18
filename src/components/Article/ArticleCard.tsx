@@ -14,7 +14,7 @@ const ArticleCard = ({ article }: { article: Article }) => {
 		>
 			<Image
 				src={
-					article.imageUrl ||
+					article.imageUrl?.trim() ||
 					"https://s3.sellerpintar.com/articles/articles/1749892451746-hero.jpg"
 				}
 				alt={article.title}
