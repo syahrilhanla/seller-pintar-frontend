@@ -10,7 +10,7 @@ interface Props {
 
 const ArticleFilterSection = async ({ role = "User" }: Props) => {
 	const categories = await axios.get(
-		`${process.env.NEXT_PUBLIC_API_URL}/categories`
+		`${process.env.NEXT_PUBLIC_API_URL}/categories?limit=100`
 	);
 
 	const categoryList = categories.data.data;
