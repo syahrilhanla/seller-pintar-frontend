@@ -68,9 +68,8 @@ const AdminArticleTable = ({ articles, totalArticles, currentPage }: Props) => {
 										}
 										alt={article.title}
 										className="w-16 h-16 object-cover rounded"
-										quality={50}
-										width={0}
-										height={0}
+										width={70}
+										height={70}
 									/>
 								</TableCell>
 								<TableCell className="p-4 text-center">
