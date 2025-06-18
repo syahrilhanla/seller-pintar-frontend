@@ -19,12 +19,13 @@ export default function AuthGuard({ children, role }: Props) {
 	const user: User | null = useReadLocalStorage("user");
 
 	// Define allowed paths for each role
-	const userAllowed = ["/article", "/profile"];
+	const userAllowed = ["/article", "/profile", "/article/[id]"];
 	const adminAllowed = [
 		"/admin",
 		"/admin/profile",
 		"/admin/article-form",
 		"/admin/category",
+		"/article/[id]/preview",
 	];
 
 	useEffect(() => {
