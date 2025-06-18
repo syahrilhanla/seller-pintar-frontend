@@ -87,7 +87,13 @@ const AdminArticleForm = ({ article, categoryList }: Props) => {
 
 		if (watch("thumbnail")?.name)
 			thumbnail = await fileToBase64(watch("thumbnail"));
-		else article?.imageUrl ? (thumbnail = article.imageUrl) : (thumbnail = "");
+		else {
+			if (article?.imageUrl) {
+				thumbnail = article.imageUrl;
+			} else {
+				thumbnail = "";
+			}
+		}
 
 		const previewData = {
 			title: watch("title"),
