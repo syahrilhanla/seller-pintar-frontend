@@ -22,12 +22,13 @@ const CategoryPage = () => {
 export default CategoryPage;
 
 const CategoryPageContent = () => {
-	const { paginatedCategories, totalCategories, pageNumber } =
+	const { paginatedCategories, totalCategories, pageNumber, isLoading } =
 		useAdminCategoryList();
 
 	return (
 		<div>
 			<AdminCategoryTable
+				isLoading={isLoading}
 				categories={paginatedCategories || []}
 				totalCategories={totalCategories}
 				currentPage={pageNumber}

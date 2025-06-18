@@ -7,6 +7,7 @@ const DEFAULT_PAGE_SIZE = 10;
 
 const useAdminCategoryList = () => {
 	const [categories, setCategories] = useState<Category[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 
 	const router = useRouter();
 
@@ -17,6 +18,8 @@ const useAdminCategoryList = () => {
 
 	const fetchCategories = useCallback(async () => {
 		try {
+			setIsLoading(true);
+
 			const response = await fetch(
 				`${process.env.NEXT_PUBLIC_API_URL}/categories?limit=100`
 			);
@@ -39,6 +42,8 @@ const useAdminCategoryList = () => {
 
 				router.replace(`/admin/category?${new URLSearchParams()}`);
 			}
+
+			setIsLoading(false);
 		}
 	}, [setCategories, refetchQuery]);
 
@@ -66,6 +71,7 @@ const useAdminCategoryList = () => {
 		paginatedCategories,
 		pageNumber,
 		totalCategories: filteredCategories.length,
+		isLoading,
 	};
 };
 

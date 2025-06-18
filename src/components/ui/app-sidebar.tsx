@@ -73,7 +73,7 @@ export const AppSidebar = () => {
 												className="text-white hover:bg-blue-500 transition-colors duration-200 hover:text-white"
 												asChild
 											>
-												<p className="flex items-center gap-1">
+												<p className="flex items-center gap-1 cursor-pointer focus:outline-blue-300">
 													<item.icon />
 													<span>{item.title}</span>
 												</p>
