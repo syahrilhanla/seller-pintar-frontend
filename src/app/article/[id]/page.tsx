@@ -27,7 +27,7 @@ const ArticleDetailPage = async ({ params: params }: Props) => {
 	);
 
 	return (
-		<div className="max-w-5xl mx-auto mt-12 px-4 gap-4 py-8 flex flex-col items-center">
+		<div className="max-w-5xl min-h-dvh mx-auto mt-12 px-4 gap-4 py-8 flex flex-col items-center">
 			<p className=" text-sm md:text-base text-slate-600 flex gap-1 items-center">
 				{formatDate(new Date(article.createdAt))} <Dot /> Created by{" "}
 				{article.user.username}

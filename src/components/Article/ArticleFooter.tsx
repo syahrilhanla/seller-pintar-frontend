@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const ArticleFooter = () => {
 	return (
-		<footer className="bg-[#2563EBDB] h-20 w-full flex justify-center items-center mt-auto">
+		<footer className="bottom-0 bg-[#2563EBDB] h-20 w-full flex justify-center items-center mt-auto">
 			<div className="flex flex-col md:flex-row md:gap-2">
 				<Image
 					src="/Logo.svg"
