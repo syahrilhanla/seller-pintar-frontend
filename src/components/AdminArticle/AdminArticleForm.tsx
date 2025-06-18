@@ -80,13 +80,17 @@ const AdminArticleForm = ({ article, categoryList }: Props) => {
 	});
 
 	const handlePreview = async () => {
-		const thumbnail = await fileToBase64(watch("thumbnail"));
+		let thumbnail = "";
+
+		if (watch("thumbnail")?.name)
+			thumbnail = await fileToBase64(watch("thumbnail"));
+		else article?.imageUrl ? (thumbnail = article.imageUrl) : (thumbnail = "");
 
 		const previewData = {
 			title: watch("title"),
 			category: watch("category"),
 			content: watch("content"),
-			thumbnail: thumbnail,
+			thumbnail,
 			user: user,
 		};
 
@@ -231,6 +235,7 @@ const AdminArticleForm = ({ article, categoryList }: Props) => {
 
 					<div className="space-y-2">
 						<ArticleRichTextEditor
+							defaultContent={article?.content || ""}
 							onUpdate={(htmlContent) => {
 								setValue("content", htmlContent, { shouldValidate: true });
 							}}

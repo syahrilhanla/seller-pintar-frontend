@@ -118,9 +118,10 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 
 interface Props {
 	onUpdate: (htmlContent: string) => void;
+	defaultContent?: string;
 }
 
-const ArticleRichTextEditor = ({ onUpdate }: Props) => {
+const ArticleRichTextEditor = ({ onUpdate, defaultContent }: Props) => {
 	const editor = useEditor({
 		extensions: [
 			StarterKit,
@@ -141,7 +142,7 @@ const ArticleRichTextEditor = ({ onUpdate }: Props) => {
 				},
 			}),
 		],
-		content: "<p>Type a content...</p>",
+		content: defaultContent || "<p>Type a content...</p>",
 		onUpdate: ({ editor }) => {
 			// You can handle the content update here if needed
 			const htmlContent = editor.getHTML();
@@ -156,7 +157,6 @@ const ArticleRichTextEditor = ({ onUpdate }: Props) => {
 			: [];
 
 	const wordCount = word[0] === "" ? 0 : word.length;
-
 	return (
 		<div className="mt-4 border rounded-lg shadow bg-white">
 			<MenuBar editor={editor} />
