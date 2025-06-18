@@ -127,17 +127,17 @@ const ArticleRichTextEditor = ({ onUpdate }: Props) => {
 			TextAlign.configure({ types: ["paragraph", "headings"] }),
 			BulletList.configure({
 				HTMLAttributes: {
-					class: "list-disc pl-5",
+					class: "list-disc pl-4",
 				},
 			}),
 			ListItem.configure({
 				HTMLAttributes: {
-					class: "list-item pl-5",
+					class: "list-item pl-4",
 				},
 			}),
 			OrderedList.configure({
 				HTMLAttributes: {
-					class: "list-decimal pl-5",
+					class: "list-decimal pl-4",
 				},
 			}),
 		],

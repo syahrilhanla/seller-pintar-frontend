@@ -4,6 +4,9 @@ import Link from "next/link";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { toast } from "sonner";
+import { useReadLocalStorage } from "usehooks-ts";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,7 +16,9 @@ import ArticleRichTextEditor from "./ArticleRichTextEditor";
 import AdminArticleThumbnail from "./AdminArticleThumbnail";
 
 import { ArrowLeft } from "lucide-react";
+
 import { Category } from "@/types/category.type";
+import { User } from "@/types/user.type";
 
 const schema = z.object({
 	title: z.string().min(1, "Please enter title"),
@@ -22,8 +27,6 @@ const schema = z.object({
 		.instanceof(File)
 		.refine(
 			(file) => {
-				console.log(file);
-
 				return file.size > 0;
 			},
 			{
@@ -49,6 +52,8 @@ interface Props {
 }
 
 const AdminArticleForm = ({ categoryList }: Props) => {
+	const user = useReadLocalStorage<User | null>("user");
+
 	const {
 		register,
 		unregister,
@@ -64,6 +69,45 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 		data: ArticleFormData
 	) => {
 		console.log("Form submitted with data:", data);
+
+		const payload = {
+			title: data.title,
+			categoryId: data.category,
+			content: data.content,
+		};
+
+		try {
+			const formData = new FormData();
+			formData.append("image", data.thumbnail);
+
+			const { data: uploadData } = await axios.post(
+				`${process.env.NEXT_PUBLIC_API_URL}/upload`,
+				formData,
+				{
+					headers: {
+						Authorization: `Bearer ${user?.token}`,
+						"Content-Type": "multipart/form-data",
+					},
+				}
+			);
+
+			const { data: createdData } = await axios.post(
+				`${process.env.NEXT_PUBLIC_API_URL}/articles`,
+				{
+					...payload,
+					imageUrl: uploadData.imageUrl,
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${user?.token}`,
+					},
+				}
+			);
+
+			toast.success("Article uploaded successfully!");
+		} catch (error) {
+			toast.error("Failed to upload article. Please try again.");
+		}
 	};
 
 	const thumbnailData = watch("thumbnail");

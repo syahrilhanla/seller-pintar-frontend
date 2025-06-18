@@ -33,7 +33,7 @@ const AdminArticleThumbnail = ({ formActions, thumbnailData }: Props) => {
 				id="thumbnail"
 				{...register("thumbnail")}
 				type="file"
-				accept="image/jpeg, image/png"
+				accept="image/jpeg, image/png, image/jpg"
 				className="hidden"
 				onChange={(e) => {
 					const file = e.target.files?.[0];
