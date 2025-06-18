@@ -55,7 +55,7 @@ export default function LoginForm() {
 		register,
 		handleSubmit,
 		setValue,
-		formState: { errors, isSubmitting, isSubmitSuccessful },
+		formState: { errors, isSubmitting },
 	} = useForm<LoginFormData | RegisterFormData>({
 		resolver: zodResolver(schema),
 	});
@@ -171,12 +171,12 @@ export default function LoginForm() {
 			)}
 
 			<Button
-				disabled={isSubmitting || isSubmitSuccessful}
+				disabled={isSubmitting || userData !== null}
 				type="submit"
 				variant={"default"}
 				className="w-full cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-center my-4"
 			>
-				{isSubmitting || isSubmitSuccessful ? (
+				{isSubmitting || userData !== null ? (
 					<>
 						<LoaderCircle className="animate-spin" />
 					</>
