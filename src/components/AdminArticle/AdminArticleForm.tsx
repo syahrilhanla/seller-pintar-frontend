@@ -4,15 +4,15 @@ import Link from "next/link";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import ArticleFilterSelect from "@/components/Article/ArticleFilterSelect";
 import ArticleRichTextEditor from "./ArticleRichTextEditor";
+import AdminArticleThumbnail from "./AdminArticleThumbnail";
 
-import { ArrowLeft, ImagePlus } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 const schema = z.object({
 	title: z.string().min(1, "Please enter title"),
@@ -41,22 +41,27 @@ const schema = z.object({
 	content: z.string().min(1, "Please enter content"),
 });
 
-type FormData = z.infer<typeof schema>;
+export type ArticleFormData = z.infer<typeof schema>;
 
 const AdminArticleForm = () => {
 	const {
 		register,
+		unregister,
 		handleSubmit,
 		setValue,
-		getValues,
 		formState: { errors, isSubmitting },
-	} = useForm<FormData>({
+		watch,
+	} = useForm<ArticleFormData>({
 		resolver: zodResolver(schema),
 	});
 
-	const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
+	const onSubmit: SubmitHandler<ArticleFormData> = async (
+		data: ArticleFormData
+	) => {
 		console.log("Form submitted with data:", data);
 	};
+
+	const thumbnailData = watch("thumbnail");
 
 	return (
 		<div className="p-8">
@@ -72,71 +77,15 @@ const AdminArticleForm = () => {
 					className="flex flex-col gap-4 px-4"
 				>
 					{/* thumbnail upload */}
-					<div className="grid w-full max-w-sm items-center gap-2">
-						<Label htmlFor="thumbnail">Thumbnail</Label>
-						<Input
-							id="thumbnail"
-							{...register("thumbnail")}
-							type="file"
-							accept="image/jpeg, image/png"
-							className="hidden"
-							onChange={(e) => {
-								const file = e.target.files?.[0];
-								if (file) {
-									setValue("thumbnail", file, { shouldValidate: true });
-								}
-							}}
-						/>
-						{getValues("thumbnail")?.name ? (
-							<>
-								<div
-									className="h-40 w-64 border border-gray-300 text-xs text-slate-500 p-1 rounded-md text-center cursor-pointer hover:bg-gray-50 transition-colors flex flex-col gap-2 items-center justify-center"
-									onClick={() => document.getElementById("thumbnail")?.click()}
-								>
-									<Image
-										src={URL.createObjectURL(getValues("thumbnail"))}
-										alt="Thumbnail Preview"
-										width={256}
-										height={256}
-										className="object-cover rounded-md w-48 h-28"
-									/>
-
-									<div className="w-full flex justify-center gap-2">
-										<Button
-											variant="link"
-											className="w-16 h-4 text-blue-600 underline cursor-pointer"
-										>
-											Change
-										</Button>
-
-										<Button
-											variant="link"
-											className="w-16 h-4 text-red-500 underline cursor-pointer"
-										>
-											Remove
-										</Button>
-									</div>
-								</div>
-							</>
-						) : (
-							<div
-								className="h-40 w-64 border-dashed border-2 border-gray-300 text-xs text-slate-500 p-4 rounded-md text-center cursor-pointer hover:bg-gray-50 transition-colors flex flex-col gap-2 items-center justify-center"
-								onClick={() => document.getElementById("thumbnail")?.click()}
-							>
-								<ImagePlus size={18} />
-								<p className="underline">Click to select a file</p>
-								<p>Support File Type: jpg or png</p>
-							</div>
-						)}
-
-						{!getValues("thumbnail")?.name && errors.thumbnail ? (
-							<p className="text-red-500 text-sm">Please select a thumbnail</p>
-						) : errors.thumbnail ? (
-							<p className="text-slate-500 text-sm">
-								{errors.thumbnail.message}
-							</p>
-						) : null}
-					</div>
+					<AdminArticleThumbnail
+						thumbnailData={thumbnailData}
+						formActions={{
+							register,
+							unregister,
+							setValue,
+							errors,
+						}}
+					/>
 					{/* thumbnail upload */}
 
 					<div className="space-y-2">
