@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { toast } from "sonner";
-import { useReadLocalStorage } from "usehooks-ts";
+import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,6 +53,13 @@ interface Props {
 
 const AdminArticleForm = ({ categoryList }: Props) => {
 	const user = useReadLocalStorage<User | null>("user");
+	const [preview, setPreview] = useLocalStorage<{
+		title: string;
+		category: string;
+		content: string;
+		thumbnail: string;
+		user: User | null;
+	} | null>("preview", null);
 
 	const {
 		register,
@@ -64,6 +71,31 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 	} = useForm<ArticleFormData>({
 		resolver: zodResolver(schema),
 	});
+
+	const handlePreview = async () => {
+		function fileToBase64(file: File): Promise<string> {
+			return new Promise((resolve, reject) => {
+				const reader = new FileReader();
+				reader.onload = () => resolve(reader.result as string);
+				reader.onerror = reject;
+				reader.readAsDataURL(file);
+			});
+		}
+
+		const thumbnail = await fileToBase64(watch("thumbnail"));
+
+		const previewData = {
+			title: watch("title"),
+			category: watch("category"),
+			content: watch("content"),
+			thumbnail: thumbnail,
+			user: user,
+		};
+
+		console.log("Preview data:", previewData);
+
+		setPreview(previewData);
+	};
 
 	const onSubmit: SubmitHandler<ArticleFormData> = async (
 		data: ArticleFormData
@@ -196,7 +228,11 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 					<Button className="bg-white text-slate-900 hover:bg-slate-100 duration-300 cursor-pointer">
 						Cancel
 					</Button>
-					<Button className="bg-slate-200  text-slate-900 hover:bg-slate-300 duration-300 cursor-pointer">
+					<Button
+						className="bg-slate-200  text-slate-900 hover:bg-slate-300 duration-300 cursor-pointer"
+						onClick={handlePreview}
+						type="button"
+					>
 						Preview
 					</Button>
 					<Button
