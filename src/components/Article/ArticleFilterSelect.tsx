@@ -13,10 +13,15 @@ import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
 	categoryList: Category[];
+	defaultCategoryId?: string; // optional default category ID to pre-select
 	onSelectWithoutQuery?: (categoryId: string) => void; // optional callback when a category is selected
 }
 
-const ArticleFilterSelect = ({ categoryList, onSelectWithoutQuery }: Props) => {
+const ArticleFilterSelect = ({
+	categoryList,
+	onSelectWithoutQuery,
+	defaultCategoryId,
+}: Props) => {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = new URLSearchParams();
@@ -44,7 +49,7 @@ const ArticleFilterSelect = ({ categoryList, onSelectWithoutQuery }: Props) => {
 
 	return (
 		<>
-			<Select onValueChange={selectCategory}>
+			<Select onValueChange={selectCategory} defaultValue={defaultCategoryId}>
 				<SelectTrigger
 					// apply the className conditionally based on onSelectWithoutQuery prop
 					className={`w-full ${

@@ -189,6 +189,7 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 						<Label htmlFor="category">Category</Label>
 						<ArticleFilterSelect
 							categoryList={categoryList}
+							defaultCategoryId={article?.categoryId || ""}
 							onSelectWithoutQuery={(categoryId) => {
 								setValue("category", categoryId, { shouldValidate: true });
 							}}
