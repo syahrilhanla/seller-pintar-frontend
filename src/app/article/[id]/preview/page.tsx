@@ -14,6 +14,7 @@ import { Dot } from "lucide-react";
 import { User } from "@/types/user.type";
 import { Article } from "@/types/article.type";
 import { ArticlePreview } from "@/types/article.type";
+import ArticleLoadingSkeleton from "@/components/Article/ArticleLoadingSkeleton";
 
 const ArticlePreviewPage = () => {
 	return (
@@ -26,6 +27,7 @@ const ArticlePreviewPage = () => {
 export default ArticlePreviewPage;
 
 const ArticlePreviewContent = () => {
+	const [isLoading, setIsLoading] = useState(true);
 	const [previewArticleState, setPreviewArticleState] =
 		useState<ArticlePreview>(null);
 	const [relatedArticles, setRelatedArticles] = useState<Article[]>([]);
@@ -62,6 +64,8 @@ const ArticlePreviewContent = () => {
 			setRelatedArticles(data.data);
 		} catch (error) {
 			console.error("Error fetching related articles:", error);
+		} finally {
+			setIsLoading(false);
 		}
 	}, [previewArticleState?.category, articleId, previewArticle]);
 
@@ -76,47 +80,53 @@ const ArticlePreviewContent = () => {
 
 	return (
 		<div className="max-w-5xl min-h-dvh mx-auto mt-12 px-4 gap-4 py-8 flex flex-col items-center">
-			<p className=" text-sm md:text-base text-slate-600 flex gap-1 items-center">
-				{formatDate(new Date())} <Dot /> Created by{" "}
-				{previewArticleState?.user?.username || "Unknown User"}
-			</p>
+			{isLoading ? (
+				<ArticleLoadingSkeleton />
+			) : (
+				<>
+					<p className=" text-sm md:text-base text-slate-600 flex gap-1 items-center">
+						{formatDate(new Date())} <Dot /> Created by{" "}
+						{previewArticleState?.user?.username || "Unknown User"}
+					</p>
 
-			<h1 className="text-3xl font-semibold text-slate-900 text-center">
-				{previewArticleState?.title}
-			</h1>
+					<h1 className="text-3xl font-semibold text-slate-900 text-center">
+						{previewArticleState?.title}
+					</h1>
 
-			<Image
-				src={
-					previewArticleState?.thumbnail ||
-					"/young-male-designer-using-graphics-tablet-while-working-with-com.jpg"
-				}
-				alt={previewArticleState?.title || "Article Thumbnail"}
-				className="mt-4 w-full h-auto rounded-lg"
-				width={0}
-				height={0}
-				sizes="100vw"
-			/>
+					<Image
+						src={
+							previewArticleState?.thumbnail ||
+							"/young-male-designer-using-graphics-tablet-while-working-with-com.jpg"
+						}
+						alt={previewArticleState?.title || "Article Thumbnail"}
+						className="mt-4 w-full h-auto rounded-lg"
+						width={0}
+						height={0}
+						sizes="100vw"
+					/>
 
-			<main className="w-full my-4">
-				<p
-					className="text-gray-700 text-justify"
-					dangerouslySetInnerHTML={{
-						__html: previewArticleState?.content || "",
-					}}
-				/>
-			</main>
+					<main className="w-full my-4">
+						<p
+							className="text-gray-700 text-justify"
+							dangerouslySetInnerHTML={{
+								__html: previewArticleState?.content || "",
+							}}
+						/>
+					</main>
 
-			<section className="w-full mt-4 md:px-8">
-				<h3 className="text-2xl font-semibold text-slate-900">
-					Other articles
-				</h3>
+					<section className="w-full mt-4 md:px-8">
+						<h3 className="text-2xl font-semibold text-slate-900">
+							Other articles
+						</h3>
 
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-					{relatedArticles.map((relatedArticle: Article) => (
-						<ArticleCard article={relatedArticle} key={relatedArticle.id} />
-					))}
-				</div>
-			</section>
+						<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+							{relatedArticles.map((relatedArticle: Article) => (
+								<ArticleCard article={relatedArticle} key={relatedArticle.id} />
+							))}
+						</div>
+					</section>
+				</>
+			)}
 		</div>
 	);
 };
