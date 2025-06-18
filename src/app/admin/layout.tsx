@@ -24,8 +24,8 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 
 				<main className="bg-gray-100 min-h-[calc(100dvh-4rem)] flex flex-col">
 					{/* <SidebarTrigger /> */}
-					<div className="fixed left-2 p-2 md:hidden">
-						<SidebarTrigger className="w-8 h-8 rounded-full p-3 bg-slate-200 cursor-pointer" />
+					<div className="fixed left-2 p-2 md:hidden z-50">
+						<SidebarTrigger className="w-8 h-8 rounded-full p-3 bg-slate-200 cursor-pointer z-50" />
 					</div>
 					{children}
 				</main>
