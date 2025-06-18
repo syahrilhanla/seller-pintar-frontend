@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { toast } from "sonner";
 import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -62,6 +63,8 @@ const AdminArticleForm = ({ article, categoryList }: Props) => {
 		null
 	);
 
+	const router = useRouter();
+
 	const {
 		register,
 		unregister,
@@ -100,18 +103,12 @@ const AdminArticleForm = ({ article, categoryList }: Props) => {
 		setTimeout(() => {
 			// redirect to the preview page
 			window.open("/article/blob/preview", "_blank", "noopener,noreferrer");
-		}, 500);
+		}, 700);
 	};
 
 	const onSubmit: SubmitHandler<ArticleFormData> = async (
 		data: ArticleFormData
 	) => {
-		const payload = {
-			title: data.title,
-			categoryId: data.category,
-			content: data.content,
-		};
-
 		try {
 			const formData = new FormData();
 			formData.append("image", data.thumbnail);
@@ -136,20 +133,45 @@ const AdminArticleForm = ({ article, categoryList }: Props) => {
 				imageUrl = uploadData.imageUrl;
 			}
 
-			await axios.post(
-				`${process.env.NEXT_PUBLIC_API_URL}/articles`,
-				{
-					...payload,
-					imageUrl,
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${user?.token}`,
+			const payload = {
+				title: data.title,
+				categoryId: data.category,
+				content: data.content,
+				imageUrl: imageUrl || null, // ensure imageUrl is null if not provided
+			};
+
+			const headers = {
+				Authorization: `Bearer ${user?.token}`,
+			};
+
+			if (article) {
+				// update existing article
+				await axios.put(
+					`${process.env.NEXT_PUBLIC_API_URL}/articles/${article.id}`,
+					{
+						...payload,
 					},
-				}
-			);
+					{
+						headers,
+					}
+				);
+			} else {
+				// create new article
+				await axios.post(
+					`${process.env.NEXT_PUBLIC_API_URL}/articles`,
+					{
+						...payload,
+					},
+					{
+						headers,
+					}
+				);
+			}
 
 			toast.success("Article uploaded successfully!");
+
+			// redirect to the admin page after successful upload
+			router.push("/admin");
 		} catch (error) {
 			toast.error("Failed to upload article. Please try again.");
 		}
