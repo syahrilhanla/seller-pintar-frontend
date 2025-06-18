@@ -144,10 +144,15 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 	return (
 		<div className="p-8">
 			<div className="p-4 rounded-md border overflow-hidden bg-white">
-				<Button variant="ghost" className="mb-8 p-0 text-slate-900">
-					<ArrowLeft className="right-4" />
-					Create Articles
-				</Button>
+				<Link href="/admin" className="flex items-center">
+					<Button
+						variant="ghost"
+						className="mb-8 p-0 text-slate-900 cursor-pointer"
+					>
+						<ArrowLeft className="right-4" />
+						Create Articles
+					</Button>
+				</Link>
 
 				<form
 					id="article-form"
