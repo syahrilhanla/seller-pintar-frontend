@@ -83,7 +83,11 @@ const AdminArticleTable = ({ articles, totalArticles, currentPage }: Props) => {
 									{formatDate(new Date(article.createdAt), true)}
 								</TableCell>
 								<TableCell className="p-4 text-center space-x-0">
-									<Link href={`/article/${article.id}?preview=true`}>
+									<Link
+										href={`/article/blob/preview?id=${article.id}`}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
 										<Button
 											variant="link"
 											className="text-blue-600 cursor-pointer underline"

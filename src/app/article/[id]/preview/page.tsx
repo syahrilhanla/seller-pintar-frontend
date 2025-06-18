@@ -1,65 +1,103 @@
 "use client";
 
-import { Dot } from "lucide-react";
+import axios from "axios";
+import { useSearchParams } from "next/navigation";
+import { useReadLocalStorage } from "usehooks-ts";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 
-import { formatDate } from "@/lib/helpers";
-
-import { useReadLocalStorage } from "usehooks-ts";
-import { User } from "@/types/user.type";
-import { useCallback, useEffect, useState } from "react";
-import { Article } from "@/types/article.type";
-import axios from "axios";
 import ArticleCard from "@/components/Article/ArticleCard";
 
-const ArticleDetailPage = () => {
+import { formatDate } from "@/lib/helpers";
+import { Dot } from "lucide-react";
+
+import { User } from "@/types/user.type";
+import { Article } from "@/types/article.type";
+
+type PreviewArticle = {
+	title: string;
+	category: string;
+	content: string;
+	thumbnail: string;
+	user: User | null;
+} | null;
+
+const ArticlePreviewPage = () => {
+	return (
+		<Suspense fallback={<div>Loading...</div>}>
+			<ArticlePreviewContent />
+		</Suspense>
+	);
+};
+
+export default ArticlePreviewPage;
+
+const ArticlePreviewContent = () => {
+	const [previewArticleState, setPreviewArticleState] =
+		useState<PreviewArticle>(null);
 	const [relatedArticles, setRelatedArticles] = useState<Article[]>([]);
 
-	const previewArticle = useReadLocalStorage<{
-		title: string;
-		category: string;
-		content: string;
-		thumbnail: string;
-		user: User | null;
-	} | null>("preview");
+	const searchParams = useSearchParams();
+	const articleId = searchParams.get("id");
+
+	const previewArticle = useReadLocalStorage<PreviewArticle>("preview");
 
 	const getRelatedArticles = useCallback(async () => {
-		if (!previewArticle?.category) return;
-
 		try {
+			// if articleId is provided, fetch the article details
+			if (articleId) {
+				const { data }: { data: Article } = await axios.get(
+					`${process.env.NEXT_PUBLIC_API_URL}/articles/${articleId}`
+				);
+
+				setPreviewArticleState({
+					title: data.title,
+					category: data.categoryId,
+					content: data.content,
+					thumbnail: data.imageUrl || "",
+					user: data.user.username as unknown as User, // bypass minor type mismatch
+				});
+			}
+
+			// if no articleId, use the preview article from local storage
+			else setPreviewArticleState(previewArticle);
+
 			const { data } = await axios.get(
-				`https://test-fe.mysellerpintar.com/api/articles?category=47bfaae5-e3d0-436b-a300-28cc882ed4a4&limit=3`
+				`${process.env.NEXT_PUBLIC_API_URL}/articles?category=${previewArticleState?.category}&limit=3`
 			);
 
 			setRelatedArticles(data.data);
 		} catch (error) {
 			console.error("Error fetching related articles:", error);
 		}
-	}, [previewArticle?.category]);
+	}, [previewArticleState?.category, articleId, previewArticle]);
 
 	useEffect(() => {
-		console.log(previewArticle?.category, relatedArticles);
-
 		getRelatedArticles();
-	}, [getRelatedArticles, previewArticle?.category]);
+	}, [
+		getRelatedArticles,
+		previewArticleState?.category,
+		articleId,
+		previewArticle,
+	]);
 
 	return (
 		<div className="max-w-5xl min-h-dvh mx-auto mt-12 px-4 gap-4 py-8 flex flex-col items-center">
 			<p className=" text-sm md:text-base text-slate-600 flex gap-1 items-center">
 				{formatDate(new Date())} <Dot /> Created by{" "}
-				{previewArticle?.user?.username || "Unknown User"}
+				{previewArticleState?.user?.username || "Unknown User"}
 			</p>
 
 			<h1 className="text-3xl font-semibold text-slate-900 text-center">
-				{previewArticle?.title}
+				{previewArticleState?.title}
 			</h1>
 
 			<Image
 				src={
-					previewArticle?.thumbnail ||
+					previewArticleState?.thumbnail ||
 					"/young-male-designer-using-graphics-tablet-while-working-with-com.jpg"
 				}
-				alt={previewArticle?.title || "Article Thumbnail"}
+				alt={previewArticleState?.title || "Article Thumbnail"}
 				className="mt-4 w-full h-auto rounded-lg"
 				width={0}
 				height={0}
@@ -69,7 +107,9 @@ const ArticleDetailPage = () => {
 			<main className="w-full my-4">
 				<p
 					className="text-gray-700 text-justify"
-					dangerouslySetInnerHTML={{ __html: previewArticle?.content || "" }}
+					dangerouslySetInnerHTML={{
+						__html: previewArticleState?.content || "",
+					}}
 				/>
 			</main>
 
@@ -87,5 +127,3 @@ const ArticleDetailPage = () => {
 		</div>
 	);
 };
-
-export default ArticleDetailPage;
