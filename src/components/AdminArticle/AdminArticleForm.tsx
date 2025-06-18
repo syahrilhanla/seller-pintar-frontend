@@ -21,6 +21,7 @@ import { fileToBase64 } from "@/lib/helpers";
 
 import { Category } from "@/types/category.type";
 import { User } from "@/types/user.type";
+import { Article, ArticlePreview } from "@/types/article.type";
 
 const schema = z.object({
 	title: z.string().min(1, "Please enter title"),
@@ -50,18 +51,16 @@ const schema = z.object({
 export type ArticleFormData = z.infer<typeof schema>;
 
 interface Props {
+	article: Article | null;
 	categoryList: Category[];
 }
 
-const AdminArticleForm = ({ categoryList }: Props) => {
+const AdminArticleForm = ({ article, categoryList }: Props) => {
 	const user = useReadLocalStorage<User | null>("user");
-	const [preview, setPreview] = useLocalStorage<{
-		title: string;
-		category: string;
-		content: string;
-		thumbnail: string;
-		user: User | null;
-	} | null>("preview", null);
+	const [preview, setPreview] = useLocalStorage<ArticlePreview>(
+		"preview",
+		null
+	);
 
 	const {
 		register,
@@ -72,6 +71,12 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 		watch,
 	} = useForm<ArticleFormData>({
 		resolver: zodResolver(schema),
+		defaultValues: {
+			title: article?.title || "",
+			category: article?.categoryId || "",
+			content: article?.content || "",
+			// thumbnail is using only the imageUrl
+		},
 	});
 
 	const handlePreview = async () => {
@@ -162,6 +167,7 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 					{/* thumbnail upload */}
 					<AdminArticleThumbnail
 						thumbnailData={thumbnailData}
+						imageUrl={article?.imageUrl || undefined}
 						formActions={{
 							register,
 							unregister,

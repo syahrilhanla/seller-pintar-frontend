@@ -25,7 +25,7 @@ const ArticleFormPage = async ({ searchParams }: Props) => {
 
 	const categoryList = categories.data.data;
 
-	return <AdminArticleForm categoryList={categoryList} />;
+	return <AdminArticleForm article={article} categoryList={categoryList} />;
 };
 
 export default ArticleFormPage;

@@ -15,6 +15,7 @@ import { ArticleFormData } from "@/components/AdminArticle/AdminArticleForm";
 
 interface Props {
 	thumbnailData?: File;
+	imageUrl?: string;
 	formActions: {
 		register: UseFormRegister<ArticleFormData>;
 		unregister: UseFormUnregister<ArticleFormData>;
@@ -23,7 +24,11 @@ interface Props {
 	};
 }
 
-const AdminArticleThumbnail = ({ formActions, thumbnailData }: Props) => {
+const AdminArticleThumbnail = ({
+	formActions,
+	thumbnailData,
+	imageUrl,
+}: Props) => {
 	const { register, unregister, setValue, errors } = formActions;
 
 	return (
@@ -42,11 +47,16 @@ const AdminArticleThumbnail = ({ formActions, thumbnailData }: Props) => {
 					}
 				}}
 			/>
-			{thumbnailData?.name ? (
+			{thumbnailData?.name || imageUrl ? (
 				<>
-					<div className="h-40 w-64 border border-gray-300 text-xs text-slate-500 p-1 rounded-md text-center cursor-pointer hover:bg-gray-50 transition-colors flex flex-col gap-2 items-center justify-center">
+					<div className="h-40 w-64 border border-gray-300 text-xs text-slate-500 p-1 rounded-md text-center hover:bg-gray-50 transition-colors flex flex-col gap-2 items-center justify-center">
 						<Image
-							src={URL.createObjectURL(thumbnailData)}
+							// if thumbnailData is provided, use it; otherwise, use the imageUrl
+							src={
+								thumbnailData?.name
+									? URL.createObjectURL(thumbnailData)
+									: imageUrl!
+							}
 							alt="Thumbnail Preview"
 							width={256}
 							height={256}
