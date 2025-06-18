@@ -57,15 +57,17 @@ const LogoutDialog = ({ children }: Props) => {
 						</Button>
 					</DialogClose>
 					<DialogClose asChild>
-						<Link href={"/login"}>
-							<Button
-								type="button"
-								className="cursor-pointer"
-								onClick={handleLogout}
-							>
-								Logout
-							</Button>
-						</Link>
+						<div>
+							<Link className="w-full block" href={"/login"}>
+								<Button
+									type="button"
+									className="cursor-pointer w-full block"
+									onClick={handleLogout}
+								>
+									Logout
+								</Button>
+							</Link>
+						</div>
 					</DialogClose>
 				</DialogFooter>
 			</DialogContent>
