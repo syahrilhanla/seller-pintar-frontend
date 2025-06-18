@@ -18,7 +18,7 @@ interface Props {
 const PaginationComponent = ({ currentPage, totalItems }: Props) => {
 	const pathname = usePathname();
 
-	const totalPages = Math.ceil(totalItems / 9);
+	const totalPages = Math.ceil(totalItems / 10);
 	const pages = [];
 	for (let i = 1; i <= totalPages; i++) {
 		pages.push(i);
