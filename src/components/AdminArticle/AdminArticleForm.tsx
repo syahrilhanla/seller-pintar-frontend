@@ -15,7 +15,9 @@ import ArticleFilterSelect from "@/components/Article/ArticleFilterSelect";
 import ArticleRichTextEditor from "./ArticleRichTextEditor";
 import AdminArticleThumbnail from "./AdminArticleThumbnail";
 
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, LoaderCircle } from "lucide-react";
+
+import { fileToBase64 } from "@/lib/helpers";
 
 import { Category } from "@/types/category.type";
 import { User } from "@/types/user.type";
@@ -73,15 +75,6 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 	});
 
 	const handlePreview = async () => {
-		const fileToBase64 = (file: File): Promise<string> => {
-			return new Promise((resolve, reject) => {
-				const reader = new FileReader();
-				reader.onload = () => resolve(reader.result as string);
-				reader.onerror = reject;
-				reader.readAsDataURL(file);
-			});
-		};
-
 		const thumbnail = await fileToBase64(watch("thumbnail"));
 
 		const previewData = {
@@ -104,8 +97,6 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 	const onSubmit: SubmitHandler<ArticleFormData> = async (
 		data: ArticleFormData
 	) => {
-		console.log("Form submitted with data:", data);
-
 		const payload = {
 			title: data.title,
 			categoryId: data.category,
@@ -127,7 +118,7 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 				}
 			);
 
-			const { data: createdData } = await axios.post(
+			await axios.post(
 				`${process.env.NEXT_PUBLIC_API_URL}/articles`,
 				{
 					...payload,
@@ -147,6 +138,8 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 	};
 
 	const thumbnailData = watch("thumbnail");
+	const formComplete =
+		watch("title") && watch("category") && watch("content") && thumbnailData;
 
 	return (
 		<div className="p-8">
@@ -229,13 +222,16 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 				</form>
 
 				<div className="flex justify-end mt-12 gap-2">
-					<Button className="bg-white text-slate-900 hover:bg-slate-100 duration-300 cursor-pointer">
-						Cancel
-					</Button>
+					<Link href="/admin">
+						<Button className="bg-white text-slate-900 hover:bg-slate-100 duration-300 cursor-pointer">
+							Cancel
+						</Button>
+					</Link>
 					<Button
 						className="bg-slate-200  text-slate-900 hover:bg-slate-300 duration-300 cursor-pointer"
 						onClick={handlePreview}
 						type="button"
+						disabled={!formComplete || isSubmitting}
 					>
 						Preview
 					</Button>
@@ -243,8 +239,13 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 						type="submit"
 						form="article-form"
 						className="bg-blue-600 text-slate-50 hover:bg-blue-700 duration-300 cursor-pointer"
+						disabled={isSubmitting}
 					>
-						Upload
+						{isSubmitting ? (
+							<LoaderCircle className="animate-spin" />
+						) : (
+							"Submit"
+						)}
 					</Button>
 				</div>
 			</div>
