@@ -45,8 +45,7 @@ const AdminCategoryTable = ({
 					<TableBody>
 						<TableRow className="bg-white">
 							<TableCell colSpan={3} className="p-4 font-semibold">
-								<div className="flex items-center justify-between">
-									{/* <ArticleFilterSection role="Admin" /> */}
+								<div className="flex items-center justify-between gap-2">
 									<div className="w-fit">
 										<ArticleSearchInput placeholder="Search category" />
 									</div>
