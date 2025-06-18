@@ -13,14 +13,23 @@ import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
 	categoryList: Category[];
+	onSelectWithoutQuery?: (categoryId: string) => void; // optional callback when a category is selected
 }
 
-const ArticleFilterSelect = ({ categoryList }: Props) => {
+const ArticleFilterSelect = ({ categoryList, onSelectWithoutQuery }: Props) => {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = new URLSearchParams();
 
 	const selectCategory = (value: string) => {
+		if (onSelectWithoutQuery) {
+			// if onSelect is provided, call it with the selected category ID
+			onSelectWithoutQuery(value);
+
+			// do not update the URL if onSelectWithoutQuery is provided
+			return;
+		}
+
 		const params = new URLSearchParams(searchParams.toString());
 		if (value === "all") {
 			params.delete("category");
@@ -36,7 +45,12 @@ const ArticleFilterSelect = ({ categoryList }: Props) => {
 	return (
 		<>
 			<Select onValueChange={selectCategory}>
-				<SelectTrigger className="w-full sm:w-fit bg-white text-slate-900 hover:bg-slate-50 focus:bg-slate-50 cursor-pointer">
+				<SelectTrigger
+					// apply the className conditionally based on onSelectWithoutQuery prop
+					className={`w-full ${
+						onSelectWithoutQuery ? "" : "sm:w-fit"
+					} bg-white text-slate-900 hover:bg-slate-50 focus:bg-slate-50 cursor-pointer`}
+				>
 					<SelectValue placeholder="Select category" />
 				</SelectTrigger>
 				<SelectContent>
