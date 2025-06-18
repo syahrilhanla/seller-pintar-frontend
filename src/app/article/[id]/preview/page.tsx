@@ -48,7 +48,7 @@ const ArticlePreviewContent = () => {
 					category: data.categoryId,
 					content: data.content,
 					thumbnail: data.imageUrl || "",
-					user: data.user.username as unknown as User, // bypass minor type mismatch
+					user: data.user as unknown as User, // bypass minor type mismatch
 				});
 			}
 
