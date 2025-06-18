@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import { useReadLocalStorage } from "usehooks-ts";
+import Link from "next/link";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -7,7 +11,8 @@ import {
 	PopoverContent,
 } from "@/components/ui/popover";
 import NavbarDropdown from "@/components/Navbar/NavbarDropdown";
-import Link from "next/link";
+import { User } from "@/types/user.type";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Props {
 	logoTheme?: "light" | "dark";
@@ -20,6 +25,9 @@ const Navbar = ({ logoTheme, navbarTitle }: Props) => {
 		logoTheme === "dark" || logoTheme === undefined
 			? "text-white underline"
 			: "text-slate-800 underline";
+
+	const user = useReadLocalStorage<User | null>("user");
+	const isUserLoading = user === undefined; // usehooks-ts returns undefined while loading
 
 	return (
 		<div className="w-full h-16 flex justify-between px-2 md:px-8 duration-300 z-20 bg-white md:bg-transparent">
@@ -73,15 +81,23 @@ const Navbar = ({ logoTheme, navbarTitle }: Props) => {
 			<Popover>
 				<PopoverTrigger className="mr-4 my-2">
 					<div className="flex items-center gap-2 cursor-pointer">
-						<Avatar>
-							<AvatarFallback className="bg-blue-200 text-blue-900">
-								SH
-							</AvatarFallback>
-						</Avatar>
-						{/* Hide on mobile, show on md+ and use theme color */}
-						<span className={`hidden md:inline ${accountNameClass}`}>
-							Syahril Hanla
-						</span>
+						{isUserLoading ? (
+							<>
+								<Skeleton className="w-8 h-8 rounded-full" />
+								<Skeleton className="hidden md:inline-block h-5 w-24 rounded" />
+							</>
+						) : (
+							<>
+								<Avatar>
+									<AvatarFallback className="bg-blue-200 text-blue-900">
+										{user?.username?.charAt(0).toUpperCase() || "G"}
+									</AvatarFallback>
+								</Avatar>
+								<span className={`hidden md:inline ${accountNameClass}`}>
+									{user?.username || "Guest"}
+								</span>
+							</>
+						)}
 					</div>
 				</PopoverTrigger>
 				<PopoverContent forceMount className="mr-4 px-0">
