@@ -158,6 +158,7 @@ const ArticleRichTextEditor = () => {
 			<EditorContent
 				editor={editor}
 				className="min-h-[200px] p-4 text-sm outline-none text-slate-500 bg-slate-100/70"
+				onClick={() => editor?.chain().focus().run()}
 			/>
 
 			<p className="p-4 text-sm text-slate-600">{wordCount} Words</p>
