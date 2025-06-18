@@ -38,6 +38,12 @@ export default async function ArticlePage({ searchParams }: Props) {
 					</p>
 
 					<div className="grid gap-8 md:grid-cols-3">
+						{articles.length === 0 && (
+							<p className="col-span-3 text-center text-slate-500">
+								No articles found.
+							</p>
+						)}
+
 						{articles.map((article) => (
 							<ArticleCard key={article.id} article={article} />
 						))}

@@ -58,6 +58,14 @@ const AdminArticleTable = ({ articles, totalArticles, currentPage }: Props) => {
 						</TableRow>
 						{/* table title */}
 
+						{articles.length === 0 && (
+							<TableRow className="bg-white text-slate-600">
+								<TableCell colSpan={5} className="p-4 text-center">
+									No articles found.
+								</TableCell>
+							</TableRow>
+						)}
+
 						{articles.map((article) => (
 							<TableRow key={article.id} className="bg-white text-slate-600">
 								<TableCell className="p-4 text-center flex items-center justify-center">
