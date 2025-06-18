@@ -112,22 +112,31 @@ const AdminArticleForm = ({ article, categoryList }: Props) => {
 			const formData = new FormData();
 			formData.append("image", data.thumbnail);
 
-			const { data: uploadData } = await axios.post(
-				`${process.env.NEXT_PUBLIC_API_URL}/upload`,
-				formData,
-				{
-					headers: {
-						Authorization: `Bearer ${user?.token}`,
-						"Content-Type": "multipart/form-data",
-					},
-				}
-			);
+			let imageUrl = "";
+
+			// if article.imageUrl is present, and thumbnail is not provided, use the existing imageUrl
+			if (article?.imageUrl && !data.thumbnail.name) {
+				imageUrl = article.imageUrl;
+			} else {
+				const { data: uploadData } = await axios.post(
+					`${process.env.NEXT_PUBLIC_API_URL}/upload`,
+					formData,
+					{
+						headers: {
+							Authorization: `Bearer ${user?.token}`,
+							"Content-Type": "multipart/form-data",
+						},
+					}
+				);
+
+				imageUrl = uploadData.imageUrl;
+			}
 
 			await axios.post(
 				`${process.env.NEXT_PUBLIC_API_URL}/articles`,
 				{
 					...payload,
-					imageUrl: uploadData.imageUrl,
+					imageUrl,
 				},
 				{
 					headers: {
