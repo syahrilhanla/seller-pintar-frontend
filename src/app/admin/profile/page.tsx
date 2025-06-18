@@ -22,7 +22,7 @@ const AdminProfilePage = () => {
 
 	return (
 		<div className="p-4 h-full">
-			<div className="w-full h-full rounded-lg p-4 bg-white shadow">
+			<div className="w-full min-h-[calc(100dvh-6rem)] rounded-lg p-4 bg-white shadow">
 				<Profile userData={userData} role="Admin" />
 			</div>
 		</div>
