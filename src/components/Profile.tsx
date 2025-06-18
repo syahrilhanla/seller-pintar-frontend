@@ -13,7 +13,7 @@ const Profile = ({ userData, role }: Props) => {
 				<div className="text-xl font-semibold mb-8">User Profile</div>
 
 				<div className="w-24 h-24 rounded-full bg-blue-200 flex items-center justify-center text-blue-900 font-medium text-3xl mb-6">
-					J
+					{userData.username ? userData.username.charAt(0).toUpperCase() : "G"}
 				</div>
 
 				<div className="space-y-3 w-full">
