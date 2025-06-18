@@ -1,3 +1,5 @@
+import { User } from "./user.type";
+
 export type ArticleCategory = {
   id: string;
   userId: string;
@@ -23,3 +25,11 @@ export type Article = {
   category: ArticleCategory;
   user: ArticleUser;
 };
+
+export type ArticlePreview = {
+  title: string;
+  category: string;
+  content: string;
+  thumbnail: string;
+  user: User | null;
+} | null

@@ -13,14 +13,7 @@ import { Dot } from "lucide-react";
 
 import { User } from "@/types/user.type";
 import { Article } from "@/types/article.type";
-
-type PreviewArticle = {
-	title: string;
-	category: string;
-	content: string;
-	thumbnail: string;
-	user: User | null;
-} | null;
+import { ArticlePreview } from "@/types/article.type";
 
 const ArticlePreviewPage = () => {
 	return (
@@ -34,13 +27,13 @@ export default ArticlePreviewPage;
 
 const ArticlePreviewContent = () => {
 	const [previewArticleState, setPreviewArticleState] =
-		useState<PreviewArticle>(null);
+		useState<ArticlePreview>(null);
 	const [relatedArticles, setRelatedArticles] = useState<Article[]>([]);
 
 	const searchParams = useSearchParams();
 	const articleId = searchParams.get("id");
 
-	const previewArticle = useReadLocalStorage<PreviewArticle>("preview");
+	const previewArticle = useReadLocalStorage<ArticlePreview>("preview");
 
 	const getRelatedArticles = useCallback(async () => {
 		try {
