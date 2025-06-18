@@ -2,6 +2,14 @@
 
 import { Editor, EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+
+import { Separator } from "@/components/ui/separator";
+import { TextAlignButton } from "@/components/tiptap-ui/text-align-button";
+import { TextAlign } from "@tiptap/extension-text-align";
+import BulletList from "@tiptap/extension-bullet-list";
+import OrderedList from "@tiptap/extension-ordered-list";
+import ListItem from "@tiptap/extension-list-item";
+
 import {
 	Bold,
 	Italic,
@@ -11,9 +19,6 @@ import {
 	Undo2,
 	Redo2,
 } from "lucide-react";
-import { Separator } from "../ui/separator";
-import { TextAlignButton } from "../tiptap-ui/text-align-button";
-import { TextAlign } from "@tiptap/extension-text-align";
 
 const MenuBar = ({ editor }: { editor: Editor | null }) => {
 	if (!editor) return null;
@@ -116,6 +121,21 @@ const ArticleRichTextEditor = () => {
 		extensions: [
 			StarterKit,
 			TextAlign.configure({ types: ["paragraph", "headings"] }),
+			BulletList.configure({
+				HTMLAttributes: {
+					class: "list-disc pl-5",
+				},
+			}),
+			ListItem.configure({
+				HTMLAttributes: {
+					class: "list-item pl-5",
+				},
+			}),
+			OrderedList.configure({
+				HTMLAttributes: {
+					class: "list-decimal pl-5",
+				},
+			}),
 		],
 		content: "<p>Type a content...</p>",
 		onUpdate: ({ editor }) => {
