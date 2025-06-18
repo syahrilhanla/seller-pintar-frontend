@@ -181,8 +181,8 @@ const AdminArticleForm = ({ categoryList }: Props) => {
 
 					<div className="space-y-2">
 						<ArticleRichTextEditor
-							onUpdate={(content, htmlContent) => {
-								setValue("content", content, { shouldValidate: true });
+							onUpdate={(htmlContent) => {
+								setValue("content", htmlContent, { shouldValidate: true });
 							}}
 						/>
 

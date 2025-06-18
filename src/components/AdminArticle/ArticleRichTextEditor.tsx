@@ -117,7 +117,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 };
 
 interface Props {
-	onUpdate: (content: string, htmlContent: string) => void;
+	onUpdate: (htmlContent: string) => void;
 }
 
 const ArticleRichTextEditor = ({ onUpdate }: Props) => {
@@ -144,10 +144,9 @@ const ArticleRichTextEditor = ({ onUpdate }: Props) => {
 		content: "<p>Type a content...</p>",
 		onUpdate: ({ editor }) => {
 			// You can handle the content update here if needed
-			const emptyText = editor.getText().trim();
 			const htmlContent = editor.getHTML();
 
-			onUpdate(emptyText, htmlContent);
+			onUpdate(htmlContent);
 		},
 	});
 
