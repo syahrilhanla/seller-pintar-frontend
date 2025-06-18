@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import ArticleFilterSelect from "@/components/Article/ArticleFilterSelect";
 
 import { ArrowLeft, ImagePlus } from "lucide-react";
+import ArticleRichTextEditor from "./ArticleRichTextEditor";
 
 const AdminArticleForm = () => {
 	return (
@@ -70,6 +71,8 @@ const AdminArticleForm = () => {
 						menu
 					</p>
 				</div>
+
+				<ArticleRichTextEditor />
 			</div>
 		</div>
 	);
