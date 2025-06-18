@@ -106,16 +106,18 @@ const AdminArticleTable = ({ articles, totalArticles, currentPage }: Props) => {
 								</TableCell>
 							</TableRow>
 						))}
-						<TableRow className="bg-white text-slate-600">
-							<TableCell colSpan={5}>
-								<div className="w-full -my-4 -mb-6 flex items-center justify-center">
-									<PaginationComponent
-										totalItems={totalArticles}
-										currentPage={currentPage}
-									/>
-								</div>
-							</TableCell>
-						</TableRow>
+						{totalArticles > 10 && (
+							<TableRow className="bg-white text-slate-600">
+								<TableCell colSpan={5}>
+									<div className="w-full -my-4 -mb-6 flex items-center justify-center">
+										<PaginationComponent
+											totalItems={totalArticles}
+											currentPage={currentPage}
+										/>
+									</div>
+								</TableCell>
+							</TableRow>
+						)}
 					</TableBody>
 				</Table>
 			</div>

@@ -44,10 +44,14 @@ export default async function ArticlePage({ searchParams }: Props) {
 					</div>
 				</div>
 
-				<PaginationComponent
-					currentPage={Number(page) || 1}
-					totalItems={data?.total || 1}
-				/>
+				{data.total > 9 && (
+					<div className="w-full -my-4 -mb-6 flex items-center justify-center">
+						<PaginationComponent
+							totalItems={data.total}
+							currentPage={Number(page) || 1}
+						/>
+					</div>
+				)}
 			</div>
 		</div>
 	);
